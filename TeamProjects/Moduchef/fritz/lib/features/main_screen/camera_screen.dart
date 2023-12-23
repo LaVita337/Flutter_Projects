@@ -299,9 +299,13 @@ class _CameraScreenState extends State<CameraScreen>
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    ingredientList.add(currentTopRecognition!);
-                  });
+                  if (currentTopRecognition != null) {
+                    setState(() {
+                      ingredientList.add(currentTopRecognition!);
+                    });
+                  } else {
+                    // currentTopRecognition이 null일 때 처리 로직을 추가
+                  }
                 },
                 child: Container(
                   width: 60.0,
@@ -373,18 +377,23 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   Future<void> startDetection() async {
+    // 상태를 설정하여 객체 감지가 진행 중임을 나타냅니다.
     setState(() {
       isYoloDetecting = true;
     });
-    if (controller!.value.isStreamingImages) {
-      return;
+
+    // 컨트롤러가 초기화되었고 이미지 스트리밍을 하고 있지 않은지 확인합니다.
+    if (controller != null &&
+        controller!.value.isInitialized &&
+        !controller!.value.isStreamingImages) {
+      // 이미지 스트림을 시작합니다.
+      await controller?.startImageStream((image) async {
+        if (isYoloDetecting) {
+          cameraImage = image;
+          yoloOnFrame(image);
+        }
+      });
     }
-    await controller?.startImageStream((image) async {
-      if (isYoloDetecting) {
-        cameraImage = image;
-        yoloOnFrame(image);
-      }
-    });
   }
 
   Future<void> stopDetection() async {
