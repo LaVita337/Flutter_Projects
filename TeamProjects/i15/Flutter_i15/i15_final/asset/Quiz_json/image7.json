@@ -1,0 +1,1 @@
+{  "question1": {    "caption": "가게에서 쇼핑하는 사람들의 사진이 찍혔다",    "key_word": "쇼핑",    "options": {      "correct_answer": "구매",      "incorrect_answer": "판매"    }  },  "question2": {    "caption": "가게에서 쇼핑하는 사람들의 사진이 찍혔다",    "key_word": "사람들",    "options": {      "correct_answer": "손님",      "incorrect_answer": "직원"    }  }}

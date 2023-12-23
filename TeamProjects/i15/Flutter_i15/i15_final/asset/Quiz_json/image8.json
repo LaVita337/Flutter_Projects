@@ -1,0 +1,18 @@
+{
+    "question1": {
+      "caption": "포수와 심판이 야구공을 치는 타자를 보고 있다.",
+      "key_word": "치는",
+      "options": {
+        "correct_answer": "때리는",
+        "incorrect_answer": "던지는"
+      }
+    },
+    "question2": {
+      "caption": "포수와 심판이 야구공을 치는 타자를 보고 있다.",
+      "key_word": "보다",
+      "options":{
+        "correct_answer": "주시하다",
+        "incorrect_answer": "좌시하다"
+  }
+  }
+}

@@ -1,0 +1,1 @@
+{  "question1": {    "caption": "잔디밭에 있는 빨간색 신발 한켤레가 나뒹굴어 있다.",    "key_word": "신발",    "options": {      "correct_answer": "구두",      "incorrect_answer": "양말"    }  },  "question2": {    "caption": "잔디밭에 있는 빨간색 신발 한켤레가 나뒹굴어 있다.",    "key_word": "나뒹굴다",    "options": {      "correct_answer": "구르다",      "incorrect_answer": "걷다"    }  }}

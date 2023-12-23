@@ -1,0 +1,1 @@
+{  "question1": {    "caption": "여자 배구 선수가 공을 치려고 한다",    "key_word": "치려고",    "options": {      "correct_answer": "때리려고",      "incorrect_answer": "받으려고"    }  },  "question2": {    "caption": "여자 배구 선수가 공을 치려고 한다",    "key_word": "공을",    "options": {      "correct_answer": "볼을",      "incorrect_answer": "배를"    }  }}

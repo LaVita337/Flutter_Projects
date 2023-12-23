@@ -1,0 +1,1 @@
+{  "question1": {    "caption": "한 남자가 길거리에서 자전거를 타고 있다",    "key_word": "타고 있다",    "options": {      "correct_answer": "운전하다",      "incorrect_answer": "걷다"    }  },  "question2": {    "caption": "한 남자가 길거리에서 자전거를 타고 있다",    "key_word": "길거리",    "options": {      "correct_answer": "도로",      "incorrect_answer": "산책로"    }  }}

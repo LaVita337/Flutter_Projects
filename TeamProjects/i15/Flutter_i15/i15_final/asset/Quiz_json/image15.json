@@ -1,0 +1,1 @@
+{  "question1": {    "caption": "큰 여객기가 공항 활주로에서 이륙하고 있다",    "key_word": "이륙",    "options": {      "correct_answer": "상승",      "incorrect_answer": "하강"    }  },  "question2": {    "caption": "큰 여객기가 공항 활주로에서 이륙하고 있다",    "key_word": "여객기",    "options": {      "correct_answer": "비행기",      "incorrect_answer": "자동차"    }  }}

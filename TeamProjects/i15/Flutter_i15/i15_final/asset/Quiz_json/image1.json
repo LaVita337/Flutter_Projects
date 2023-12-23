@@ -1,0 +1,18 @@
+{
+    "question1": {
+      "caption": "한 여자가 해변에서 분홍색 우산을 들고 있다",
+      "key_word": "들고",
+      "options": {
+        "correct_answer": "잡고",
+        "incorrect_answer": "떠나고"
+      }
+    },
+    "question2": {
+      "caption": "한 여자가 해변에서 분홍색 우산을 들고 있다",
+      "key_word": "분홍색",
+      "options": {
+        "correct_answer": "핑크색",
+        "incorrect_answer": "파란색"
+      }
+    }
+  }

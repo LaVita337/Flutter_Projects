@@ -1,0 +1,18 @@
+{
+    "question1": {
+      "caption": "두 사람이 손을 잡고 하늘을 향해 손을 뻗는다",
+      "key_word": "손",
+      "options": {
+        "correct_answer": "팔",
+        "incorrect_answer": "발"
+      }
+    },
+    "question2": {
+      "caption": "두 사람이 손을 잡고 하늘을 향해 손을 뻗는다",
+      "key_word": "하늘",
+          "options":{
+              "correct_answer":"구름",
+              "incorrect_answer":"바닷가"
+          }
+    }
+  }
