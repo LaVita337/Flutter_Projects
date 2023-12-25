@@ -7,7 +7,7 @@ class BottomBar extends StatelessWidget {
   static const double NavigationIconSize = 20.0;
   static const double CreateButtonWidth = 38.0;
 
-  ViedeoControll viedeoControl = ViedeoControll();
+  final ViedeoControll viedeoControl = ViedeoControll();
 
   BottomBar({Key? key}) : super(key: key);
 
