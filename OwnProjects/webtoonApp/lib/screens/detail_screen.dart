@@ -69,7 +69,7 @@ class _DetailScreenState extends State<DetailScreen> {
       appBar: AppBar(
         elevation: 2,
         backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
+        foregroundColor: Colors.blueGrey,
         actions: [
           IconButton(
               onPressed: onHeartTap,
@@ -80,7 +80,7 @@ class _DetailScreenState extends State<DetailScreen> {
         title: Text(
           widget.title,
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
         ),

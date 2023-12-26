@@ -12,6 +12,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF181818),
         body: SingleChildScrollView(
@@ -75,14 +76,29 @@ class App extends StatelessWidget {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Button(
-                        text: 'Transfer',
-                        bgColor: Color(0xFFF2B33A),
-                        textColor: Colors.black),
-                    Button(
-                        text: 'Request',
-                        bgColor: Color(0xFF1F2123),
-                        textColor: Colors.white),
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth, // 텍스트가 너비에 맞게 조정되도록 설정
+                        child: Button(
+                          text: 'Transfer',
+                          bgColor: Color(0xFFF2B33A),
+                          textColor: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8, // 버튼 사이 간격
+                    ),
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth, // 텍스트가 너비에 맞게 조정되도록 설정
+                        child: Button(
+                          text: 'Request',
+                          bgColor: Color(0xFF1F2123),
+                          textColor: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(

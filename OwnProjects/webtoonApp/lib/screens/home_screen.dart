@@ -16,11 +16,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 2,
         backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
+        foregroundColor: Colors.blueGrey,
         title: const Text(
           "Today's toons",
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
         ),

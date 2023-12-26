@@ -1,16 +1,20 @@
-# networking
+# HTTP 통신 예제 앱
 
-A new Flutter project.
+<img src="assets/images/http_practice_screen.png" alt="AIbudget Main Screen" width="300">
 
-## Getting Started
+## 프로젝트 소개
 
-This project is a starting point for a Flutter application.
+이 앱은 HTTP 통신을 연습하고 이해하기 위해 제작되었습니다. 
+여기에는 `jsonplaceholder`라는 더미 데이터 API를 사용한 네트워크 통신 코드 예제가 포함되어 있습니다.
 
-A few resources to get you started if this is your first Flutter project:
+## 기능 설명
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **데이터 표시**: `jsonplaceholder`에서 제공하는 API를 통해 가상의 데이터를 가져와 화면에 표시합니다.
+- **통신 연습**: HTTP GET 요청을 보내고 응답을 처리하는 방법을 실습합니다.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 기술적 구현
+
+- **Flutter**: 크로스 플랫폼 애플리케이션 개발을 위해 Flutter 프레임워크를 사용하였습니다.
+- **HTTP 통신**: Dart의 `http` 패키지를 사용하여 네트워크 요청을 보내고 응답을 받습니다.
+- **jsonplaceholder API**: 더미 데이터를 쉽게 테스트할 수 있도록 만들어진 공개 API를 활용합니다.
+
