@@ -2,24 +2,28 @@
 
 ## Login & Sign up screen
 
-<img src="assets/images/login_screen1.png" alt="틱톡 클론 앱 메인 화면" width="230">
-<img src="assets/images/login_screen2.png" alt="틱톡 클론 앱 메인 화면" width="231">
-<img src="assets/images/signup_screen.png" alt="틱톡 클론 앱 메인 화면" width="230">
-
+<p float="left">
+  <img src="assets/images/login_screen1.png" alt="틱톡 클론 앱 메인 화면" width="230">
+  <img src="assets/images/login_screen2.png" alt="틱톡 클론 앱 메인 화면" width="231">
+  <img src="assets/images/signup_screen.png" alt="틱톡 클론 앱 메인 화면" width="230">
+</p>
 
 ## Onboarding screen
 
-<img src="assets/images/interest_screen1.png" alt="틱톡 클론 앱 메인 화면" width="226">
-<img src="assets/images/interest_screen2.png" alt="틱톡 클론 앱 메인 화면" width="228">
-<img src="assets/images/onboarding_screen.png" alt="틱톡 클론 앱 메인 화면" width="230">
+<p float="left">
+  <img src="assets/images/interest_screen1.png" alt="틱톡 클론 앱 메인 화면" width="226">
+  <img src="assets/images/interest_screen2.png" alt="틱톡 클론 앱 메인 화면" width="228">
+  <img src="assets/images/onboarding_screen.png" alt="틱톡 클론 앱 메인 화면" width="230">
+</p>
 
 
 ## Navigation screen
 
-<img src="assets/images/main_video_screen.png" alt="틱톡 클론 앱 메인 화면" width="230">
-<img src="assets/images/video_message_screen.png" alt="틱톡 클론 앱 메인 화면" width="235">
-<img src="assets/images/main_discover_screen.png" alt="틱톡 클론 앱 메인 화면" width="235">
-
+<p float="left">
+  <img src="assets/images/main_video_screen.png" alt="틱톡 클론 앱 메인 화면" width="230">
+  <img src="assets/images/video_message_screen.png" alt="틱톡 클론 앱 메인 화면" width="235">
+  <img src="assets/images/main_discover_screen.png" alt="틱톡 클론 앱 메인 화면" width="235">
+</p>
 
 
 ## 프로젝트 소개
