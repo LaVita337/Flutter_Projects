@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "546468176459",
+    "project_id": "i15-project-5dd11",
+    "storage_bucket": "i15-project-5dd11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546468176459:android:7ed6f55ea861e76b9563ce",
+        "android_client_info": {
+          "package_name": "com.example.i15_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYNU_pZN0nxEHTrPoiMCkSf3HWF6qz3Tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
