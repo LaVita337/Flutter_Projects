@@ -1,6 +1,4 @@
 import 'package:TikTok/features/authentication/login_screen.dart';
-import 'package:TikTok/features/inbox/activity_screen.dart';
-import 'package:TikTok/features/main_navigation/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
 
@@ -37,7 +35,7 @@ class TickTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const LoginScreen(),
     );
   }
 }
