@@ -1,4 +1,5 @@
 import 'package:TikTok/features/inbox/inbox_screen.dart';
+import 'package:TikTok/features/users/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
@@ -16,7 +17,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 4;
 
   void _onTap(int index) {
     setState(() {
@@ -53,16 +54,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             child: const DiscoverScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 2,
+            offstage: _selectedIndex != 3,
             child: const InboxScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 3,
-            child: Container(),
-          ),
-          Offstage(
             offstage: _selectedIndex != 4,
-            child: Container(),
+            child: const UserProfileScreen(),
           ),
         ],
       ),
@@ -98,7 +95,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               Gaps.h24,
               NavTab(
                 text: "Clip",
-                isSelected: _selectedIndex == 2,
+                isSelected: _selectedIndex == 3,
                 icon: FontAwesomeIcons.paperclip,
                 selectedIcon: FontAwesomeIcons.paperclip,
                 onTap: () => _onTap(2),
@@ -106,7 +103,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               ),
               NavTab(
                 text: "My",
-                isSelected: _selectedIndex == 3,
+                isSelected: _selectedIndex == 4,
                 icon: FontAwesomeIcons.faceSmile,
                 selectedIcon: FontAwesomeIcons.faceSmile,
                 onTap: () => _onTap(3),
