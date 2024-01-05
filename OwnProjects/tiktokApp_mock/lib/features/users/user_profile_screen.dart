@@ -1,3 +1,4 @@
+import 'package:TikTok/constants/breakpoints.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
 import 'package:TikTok/features/settings/settings_screen.dart';
@@ -21,163 +22,359 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return SafeArea(
       child: DefaultTabController(
         length: 2,
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
-              SliverAppBar(
-                title: const Text('Channel Name'),
-                actions: [
-                  IconButton(
-                      onPressed: _onGearPress,
-                      icon: const FaIcon(FontAwesomeIcons.gear,
-                          size: Sizes.size20))
-                ],
-              ),
+              if (screenSize.width < Breakpoints.md)
+                SliverAppBar(
+                  title: const Text('Channel Name'),
+                  actions: [
+                    IconButton(
+                        onPressed: _onGearPress,
+                        icon: const FaIcon(FontAwesomeIcons.gear,
+                            size: Sizes.size20))
+                  ],
+                ),
               SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const CircleAvatar(
-                      radius: 50,
-                      foregroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1523572989266-8239d24ebb68?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfDB8MHx8fDA%3D'),
-                      child: Text("User Name"),
-                    ),
-                    Gaps.v10,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "@User Name",
-                          style: TextStyle(
-                              fontSize: Sizes.size16,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Gaps.h5,
-                        FaIcon(
-                          FontAwesomeIcons.solidCircleCheck,
-                          size: Sizes.size16,
-                          color: Colors.blue.shade400,
-                        )
-                      ],
-                    ),
-                    Gaps.v20,
-                    SizedBox(
-                      height: Sizes.size52,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const UserProfileStats(count: "99", title: "Posts"),
-                          VerticalDivider(
-                            width: Sizes.size32,
-                            thickness: Sizes.size1,
-                            color: Colors.grey.shade400,
-                            indent: Sizes.size10,
-                            endIndent: Sizes.size18,
-                          ),
-                          const UserProfileStats(
-                              count: "9M", title: "Followers"),
-                          VerticalDivider(
-                            width: Sizes.size32,
-                            thickness: 1,
-                            color: Colors.grey.shade400,
-                            indent: Sizes.size10,
-                            endIndent: Sizes.size18,
-                          ),
-                          const UserProfileStats(
-                              count: "99", title: "Following"),
-                        ],
-                      ),
-                    ),
-                    Gaps.v14,
-                    FractionallySizedBox(
-                      widthFactor: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: Sizes.size10,
-                                horizontal: Sizes.size32),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(Sizes.size4),
+                child: screenSize.width > Breakpoints.md
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 50.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircleAvatar(
+                              radius: 100,
+                              foregroundImage: NetworkImage(
+                                  'https://images.unsplash.com/photo-1523572989266-8239d24ebb68?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfDB8MHx8fDA%3D'),
                             ),
-                            child: const Text(
-                              "Follow",
-                              style: TextStyle(
-                                fontSize: Sizes.size16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                            Gaps.h60,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text(
+                                      "Channel Name",
+                                      style: TextStyle(
+                                          fontSize: Sizes.size28,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Gaps.h28,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: Sizes.size7,
+                                              horizontal: Sizes.size32),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            borderRadius: BorderRadius.circular(
+                                                Sizes.size4),
+                                          ),
+                                          child: const TextButton(
+                                            onPressed: null,
+                                            child: Text(
+                                              "Follow",
+                                              style: TextStyle(
+                                                fontSize: Sizes.size16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                        Gaps.h10,
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: Sizes.size6,
+                                              horizontal: Sizes.size12),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.grey.shade300,
+                                                width: Sizes.size1),
+                                            borderRadius: BorderRadius.circular(
+                                                Sizes.size4),
+                                          ),
+                                          child: const TextButton(
+                                            onPressed: null,
+                                            child: Text(
+                                              "Message",
+                                              style: TextStyle(
+                                                  fontSize: Sizes.size16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.black54),
+                                            ),
+                                          ),
+                                        ),
+                                        Gaps.h10,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.grey.shade300,
+                                                width: Sizes.size1),
+                                            borderRadius: BorderRadius.circular(
+                                                Sizes.size4),
+                                          ),
+                                          child: const IconButton(
+                                            onPressed: null,
+                                            icon: FaIcon(
+                                              FontAwesomeIcons.caretDown,
+                                              size: Sizes.size12,
+                                              color: Colors.black54,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Gaps.v10,
+                                SizedBox(
+                                  height: Sizes.size52,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      UserProfileStats(
+                                          screenSize: screenSize,
+                                          count: "99",
+                                          title: "Posts"),
+                                      VerticalDivider(
+                                        width: Sizes.size32,
+                                        thickness: Sizes.size1,
+                                        color: Colors.grey.shade400,
+                                        indent: Sizes.size18,
+                                        endIndent: Sizes.size18,
+                                      ),
+                                      UserProfileStats(
+                                          screenSize: screenSize,
+                                          count: "99M",
+                                          title: "Followers"),
+                                      VerticalDivider(
+                                        width: Sizes.size32,
+                                        thickness: 1,
+                                        color: Colors.grey.shade400,
+                                        indent: Sizes.size18,
+                                        endIndent: Sizes.size18,
+                                      ),
+                                      UserProfileStats(
+                                          screenSize: screenSize,
+                                          count: "99",
+                                          title: "Following"),
+                                    ],
+                                  ),
+                                ),
+                                Gaps.v10,
+                                Row(
+                                  children: [
+                                    const Text(
+                                      "@User Name",
+                                      style: TextStyle(
+                                          fontSize: Sizes.size16,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Gaps.h5,
+                                    FaIcon(
+                                      FontAwesomeIcons.solidCircleCheck,
+                                      size: Sizes.size16,
+                                      color: Colors.blue.shade400,
+                                    ),
+                                  ],
+                                ),
+                                Gaps.v14,
+                                const Text(
+                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                  textAlign: TextAlign.center,
+                                ),
+                                Gaps.v20,
+                                const Row(
+                                  children: [
+                                    FaIcon(
+                                      FontAwesomeIcons.link,
+                                      size: Sizes.size12,
+                                    ),
+                                    Gaps.h4,
+                                    Text(
+                                      "www.gloomdev.com",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          const CircleAvatar(
+                            radius: 50,
+                            foregroundImage: NetworkImage(
+                                'https://images.unsplash.com/photo-1523572989266-8239d24ebb68?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfDB8MHx8fDA%3D'),
+                            child: Text("User Name"),
+                          ),
+                          Gaps.v10,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "@User Name",
+                                style: TextStyle(
+                                    fontSize: Sizes.size16,
+                                    fontWeight: FontWeight.w600),
                               ),
+                              Gaps.h5,
+                              FaIcon(
+                                FontAwesomeIcons.solidCircleCheck,
+                                size: Sizes.size16,
+                                color: Colors.blue.shade400,
+                              )
+                            ],
+                          ),
+                          Gaps.v20,
+                          SizedBox(
+                            height: Sizes.size52,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                UserProfileStats(
+                                    screenSize: screenSize,
+                                    count: "99",
+                                    title: "Posts"),
+                                VerticalDivider(
+                                  width: Sizes.size32,
+                                  thickness: Sizes.size1,
+                                  color: Colors.grey.shade400,
+                                  indent: Sizes.size10,
+                                  endIndent: Sizes.size18,
+                                ),
+                                UserProfileStats(
+                                    screenSize: screenSize,
+                                    count: "99M",
+                                    title: "Followers"),
+                                VerticalDivider(
+                                  width: Sizes.size32,
+                                  thickness: 1,
+                                  color: Colors.grey.shade400,
+                                  indent: Sizes.size10,
+                                  endIndent: Sizes.size18,
+                                ),
+                                UserProfileStats(
+                                    screenSize: screenSize,
+                                    count: "99",
+                                    title: "Following"),
+                              ],
+                            ),
+                          ),
+                          Gaps.v14,
+                          FractionallySizedBox(
+                            widthFactor: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: Sizes.size11,
+                                      horizontal: Sizes.size40),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.circular(Sizes.size4),
+                                  ),
+                                  child: const Text(
+                                    "Follow",
+                                    style: TextStyle(
+                                      fontSize: Sizes.size16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Gaps.h10,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: Sizes.size6,
+                                      horizontal: Sizes.size10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.shade300,
+                                        width: Sizes.size1),
+                                    borderRadius:
+                                        BorderRadius.circular(Sizes.size4),
+                                  ),
+                                  child: const TextButton(
+                                    onPressed: null,
+                                    child: Text(
+                                      "Message",
+                                      style: TextStyle(
+                                          fontSize: Sizes.size16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black54),
+                                    ),
+                                  ),
+                                ),
+                                Gaps.h10,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.shade300,
+                                        width: Sizes.size1),
+                                    borderRadius:
+                                        BorderRadius.circular(Sizes.size4),
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const FaIcon(
+                                      FontAwesomeIcons.caretDown,
+                                      size: Sizes.size12,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Gaps.v14,
+                          const Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: Sizes.size32),
+                            child: Text(
+                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          Gaps.h12,
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: Sizes.size9, horizontal: Sizes.size9),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey.shade300,
-                                  width: Sizes.size1),
-                              borderRadius: BorderRadius.circular(Sizes.size4),
-                            ),
-                            child: const FaIcon(
-                              FontAwesomeIcons.youtube,
-                              size: Sizes.size20,
-                              color: Colors.black,
-                            ),
+                          Gaps.v14,
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.link,
+                                size: Sizes.size12,
+                              ),
+                              Gaps.h4,
+                              Text(
+                                "www.gloomdev.com",
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                            ],
                           ),
-                          Gaps.h7,
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 13, horizontal: 15),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey.shade300,
-                                  width: Sizes.size1),
-                              borderRadius: BorderRadius.circular(Sizes.size4),
-                            ),
-                            child: const FaIcon(
-                              FontAwesomeIcons.caretDown,
-                              size: Sizes.size12,
-                              color: Colors.black,
-                            ),
-                          ),
+                          Gaps.v20,
                         ],
                       ),
-                    ),
-                    Gaps.v14,
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: Sizes.size32),
-                      child: Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Gaps.v14,
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.link,
-                          size: Sizes.size12,
-                        ),
-                        Gaps.h4,
-                        Text(
-                          "www.gloomdev.com",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                    Gaps.v20,
-                  ],
-                ),
               ),
-              SliverPersistentHeader(delegate: PersistentTabBar(), pinned: true)
+              SliverPersistentHeader(
+                  delegate: PersistentTabBar(screenSize: screenSize),
+                  pinned: true)
             ];
           },
           body: TabBarView(
@@ -186,8 +383,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 20,
                 padding: EdgeInsets.zero,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: screenSize.width < Breakpoints.lg ? 3 : 5,
                     crossAxisSpacing: 1,
                     mainAxisSpacing: 3,
                     childAspectRatio: 9 / 13),
@@ -204,12 +401,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 "https://images.unsplash.com/photo-1542887800-faca0261c9e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2856&q=80",
                           ),
                         ),
-                        const Positioned(
-                          left: 5,
-                          bottom: 5,
+                        Positioned(
+                          left: 10,
+                          bottom: 10,
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.play_circle_outline,
                                 color: Colors.white,
                                 size: Sizes.size16,
@@ -219,8 +416,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 "99K",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: Sizes.size12,
-                                    fontWeight: FontWeight.w600),
+                                    fontSize: screenSize.width < Breakpoints.md
+                                        ? Sizes.size12
+                                        : Sizes.size16,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ],
                           ),

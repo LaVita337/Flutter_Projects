@@ -27,84 +27,96 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.size40),
-          child: Column(
-            children: [
-              Gaps.v80,
-              const Text(
-                'Sign up for App',
-                style: TextStyle(
-                  fontSize: Sizes.size24,
-                  fontWeight: FontWeight.w700,
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        // if (orientation == Orientation.landscape) {
+        //   return const Scaffold(
+        //       body: Center(
+        //           child: Text(
+        //               'Please rotate your device to portrait mode to continue')));
+        // }
+        return Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Sizes.size40),
+                child: Column(
+                  children: [
+                    Gaps.v80,
+                    const Text(
+                      'Sign up for App',
+                      style: TextStyle(
+                        fontSize: Sizes.size24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Gaps.v20,
+                    const Text(
+                      'Create a profile, follow other accounts, make your own videos, and more.',
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        color: Colors.black54,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Gaps.v40,
+                    AuthButton(
+                        onTapFunction: _onEmailSignUpTap,
+                        icon: const FaIcon(FontAwesomeIcons.user),
+                        text: 'Use Email & Password'),
+                    Gaps.v16,
+                    AuthButton(
+                        onTapFunction: _onEmailSignUpTap,
+                        icon: const FaIcon(FontAwesomeIcons.facebook),
+                        text: 'Sign up with Facebook'),
+                    Gaps.v16,
+                    AuthButton(
+                        onTapFunction: _onEmailSignUpTap,
+                        icon: const FaIcon(FontAwesomeIcons.apple),
+                        text: 'Sign up with Apple'),
+                    Gaps.v16,
+                    AuthButton(
+                        onTapFunction: _onEmailSignUpTap,
+                        icon: const FaIcon(FontAwesomeIcons.google),
+                        text: 'Sign up with Google'),
+                    Gaps.v16,
+                  ],
                 ),
               ),
-              Gaps.v20,
-              const Text(
-                'Create a profile, follow other accounts, make your own videos, and more.',
-                style: TextStyle(
-                  fontSize: Sizes.size16,
-                  color: Colors.black54,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              Gaps.v40,
-              AuthButton(
-                  onTapFunction: _onEmailSignUpTap,
-                  icon: const FaIcon(FontAwesomeIcons.user),
-                  text: 'Use Email & Password'),
-              Gaps.v16,
-              AuthButton(
-                  onTapFunction: _onEmailSignUpTap,
-                  icon: const FaIcon(FontAwesomeIcons.facebook),
-                  text: 'Sign up with Facebook'),
-              Gaps.v16,
-              AuthButton(
-                  onTapFunction: _onEmailSignUpTap,
-                  icon: const FaIcon(FontAwesomeIcons.apple),
-                  text: 'Sign up with Apple'),
-              Gaps.v16,
-              AuthButton(
-                  onTapFunction: _onEmailSignUpTap,
-                  icon: const FaIcon(FontAwesomeIcons.google),
-                  text: 'Sign up with Google'),
-              Gaps.v16,
-            ],
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 2,
-        color: Colors.grey.shade50,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Already have an account?',
-                style: TextStyle(
-                  fontSize: Sizes.size14,
-                  fontWeight: FontWeight.w400,
-                ),
+          bottomNavigationBar: BottomAppBar(
+            elevation: 2,
+            color: Colors.grey.shade50,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Already have an account?',
+                    style: TextStyle(
+                      fontSize: Sizes.size14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Gaps.h5,
+                  GestureDetector(
+                    onTap: () => _onLoginTap(context),
+                    child: Text(
+                      'Log in',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: Sizes.size16,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
               ),
-              Gaps.h5,
-              GestureDetector(
-                onTap: () => _onLoginTap(context),
-                child: Text(
-                  'Log in',
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: Sizes.size16,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

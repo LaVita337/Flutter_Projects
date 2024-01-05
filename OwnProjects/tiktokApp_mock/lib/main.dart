@@ -1,8 +1,17 @@
-import 'package:TikTok/features/authentication/login_screen.dart';
+import 'package:TikTok/features/videos/video_timeline_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
+import 'package:flutter/services.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
   runApp(const TickTokApp());
 }
 
@@ -35,7 +44,7 @@ class TickTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginScreen(),
+      home: const VideoTimelineScreen(),
     );
   }
 }

@@ -17,7 +17,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 3;
 
   void _onTap(int index) {
     setState(() {
@@ -42,7 +42,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
       body: Stack(
         children: [
           Offstage(
@@ -54,27 +53,27 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             child: const DiscoverScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 3,
+            offstage: _selectedIndex != 2,
             child: const InboxScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 4,
+            offstage: _selectedIndex != 3,
             child: const UserProfileScreen(),
           ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: _selectedIndex == 0 ? Colors.black54 : Colors.white,
         child: Padding(
-          padding: const EdgeInsets.only(top: Sizes.size16),
+          padding:
+              const EdgeInsets.only(top: Sizes.size16, bottom: Sizes.size12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               NavTab(
                 text: "Home",
                 isSelected: _selectedIndex == 0,
-                icon: FontAwesomeIcons.house,
-                selectedIcon: FontAwesomeIcons.house,
+                icon: FontAwesomeIcons.houseChimney,
+                selectedIcon: FontAwesomeIcons.houseChimney,
                 onTap: () => _onTap(0),
                 selectedIndex: _selectedIndex,
               ),
@@ -95,15 +94,15 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               Gaps.h24,
               NavTab(
                 text: "Clip",
-                isSelected: _selectedIndex == 3,
-                icon: FontAwesomeIcons.paperclip,
-                selectedIcon: FontAwesomeIcons.paperclip,
+                isSelected: _selectedIndex == 2,
+                icon: FontAwesomeIcons.message,
+                selectedIcon: FontAwesomeIcons.message,
                 onTap: () => _onTap(2),
                 selectedIndex: _selectedIndex,
               ),
               NavTab(
                 text: "My",
-                isSelected: _selectedIndex == 4,
+                isSelected: _selectedIndex == 3,
                 icon: FontAwesomeIcons.faceSmile,
                 selectedIcon: FontAwesomeIcons.faceSmile,
                 onTap: () => _onTap(3),

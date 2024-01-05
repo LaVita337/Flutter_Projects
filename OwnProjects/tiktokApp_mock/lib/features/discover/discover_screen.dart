@@ -1,3 +1,4 @@
+import 'package:TikTok/constants/breakpoints.dart';
 import 'package:TikTok/features/discover/widgets/top_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,16 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
-          title: const TopSearchBar(),
+          title: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: Breakpoints.sm),
+              child: const TopSearchBar()),
           bottom: TabBar(
             splashFactory: NoSplash.splashFactory,
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -61,80 +65,84 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
                   itemCount: 20,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: width > Breakpoints.lg ? 5 : 2,
                       crossAxisSpacing: 3,
                       mainAxisSpacing: 3,
                       childAspectRatio: 9 / 20),
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: AspectRatio(
-                          aspectRatio: 9 / 16,
-                          child: FadeInImage.assetNetwork(
-                            fit: BoxFit.cover,
-                            placeholder: "assets/images/placeholder.jpg",
-                            image:
-                                "https://images.unsplash.com/photo-1542887800-faca0261c9e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2856&q=80",
+                  itemBuilder: (context, index) => LayoutBuilder(
+                    builder: (context, constraints) => Column(
+                      children: [
+                        Container(
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 9 / 16,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              placeholder: "assets/images/placeholder.jpg",
+                              image:
+                                  "https://images.unsplash.com/photo-1542887800-faca0261c9e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2856&q=80",
+                            ),
                           ),
                         ),
-                      ),
-                      Gaps.v10,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Column(
-                          children: [
-                            const Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                              style: TextStyle(
-                                fontSize: Sizes.size16,
-                                fontWeight: FontWeight.bold,
+                        Gaps.v10,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                style: TextStyle(
+                                  fontSize: Sizes.size16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                            ),
-                            Gaps.v5,
-                            DefaultTextStyle(
-                              style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              child: Row(
-                                children: [
-                                  const CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        "https://images.unsplash.com/photo-1482424917728-d82d29662023?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3105&q=80"),
-                                    radius: 12,
-                                    backgroundColor: Colors.black,
-                                  ),
-                                  Gaps.h3,
-                                  const Expanded(
-                                    child: Text(
-                                      "UserNameCouldBeLongerThanYouThought",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                  FaIcon(
-                                    FontAwesomeIcons.heart,
-                                    size: 16,
+                              Gaps.v5,
+                              if (constraints.maxWidth < 200 ||
+                                  constraints.maxWidth > 250)
+                                DefaultTextStyle(
+                                  style: TextStyle(
                                     color: Colors.grey.shade600,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                  Gaps.h3,
-                                  const Text(
-                                    "4.3M",
+                                  child: Row(
+                                    children: [
+                                      const CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            "https://images.unsplash.com/photo-1482424917728-d82d29662023?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3105&q=80"),
+                                        radius: 12,
+                                        backgroundColor: Colors.black,
+                                      ),
+                                      Gaps.h3,
+                                      const Expanded(
+                                        child: Text(
+                                          "UserNameCouldBeLongerThanYouThought",
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      FaIcon(
+                                        FontAwesomeIcons.heart,
+                                        size: 16,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                      Gaps.h3,
+                                      const Text(
+                                        "4.3M",
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 for (var tab in tabs.skip(1))

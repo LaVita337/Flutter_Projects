@@ -1,3 +1,5 @@
+import 'package:TikTok/constants/breakpoints.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
@@ -25,8 +27,8 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
 
   bool _showFullText = false;
-
   bool _isPaused = false;
+  bool _volumeOnOff = false;
 
   final Duration _animationDuration = const Duration(milliseconds: 100);
 
@@ -49,6 +51,17 @@ class _VideoPostState extends State<VideoPost>
     });
   }
 
+  void _onVolumePressed() {
+    setState(() {
+      _volumeOnOff = !_volumeOnOff;
+      if (_volumeOnOff) {
+        _videoPlayerController.setVolume(1);
+      } else {
+        _videoPlayerController.setVolume(0);
+      }
+    });
+  }
+
   void _onVideoChanged() {
     if (_videoPlayerController.value.isInitialized) {
       if (_videoPlayerController.value.duration ==
@@ -61,6 +74,9 @@ class _VideoPostState extends State<VideoPost>
   void _initVideoPlayer() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+    }
     _videoPlayerController.addListener(_onVideoChanged);
     setState(() {});
   }
@@ -117,151 +133,164 @@ class _VideoPostState extends State<VideoPost>
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: VisibilityDetector(
-        key: Key("${widget.index}"),
-        onVisibilityChanged: _onVisibilityChanged,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: _videoPlayerController.value.isInitialized
-                  ? VideoPlayer(_videoPlayerController)
-                  : Container(
-                      color: Colors.black54,
-                    ),
-            ),
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: _onTogglePause,
-              ),
-            ),
-            Positioned.fill(
-              child: IgnorePointer(
-                child: Center(
-                  child: AnimatedBuilder(
-                    animation: _animationController,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _animationController.value,
-                        child: child,
-                      );
-                    },
-                    child: AnimatedOpacity(
-                        opacity: _isPaused ? 1 : 0,
-                        duration: _animationDuration,
-                        child: _isPaused
-                            ? const FaIcon(
-                                FontAwesomeIcons.play,
-                                color: Colors.white,
-                                size: Sizes.size56,
-                              )
-                            : const FaIcon(
-                                FontAwesomeIcons.pause,
-                                color: Colors.white,
-                                size: Sizes.size56,
-                              )),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: Breakpoints.md),
+          child: VisibilityDetector(
+            key: Key("${widget.index}"),
+            onVisibilityChanged: _onVisibilityChanged,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: _videoPlayerController.value.isInitialized
+                      ? VideoPlayer(_videoPlayerController)
+                      : Container(
+                          color: Colors.black54,
+                        ),
+                ),
+                Positioned.fill(
+                  child: GestureDetector(
+                    onTap: _onTogglePause,
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              left: 15,
-              right: 100,
-              bottom: 30,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "@Username",
-                    style: TextStyle(
-                        fontSize: Sizes.size20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Gaps.v14,
-                  const Text(
-                    "Where users leave their comment",
-                    style:
-                        TextStyle(fontSize: Sizes.size16, color: Colors.white),
-                  ),
-                  Gaps.v10,
-                  Wrap(
-                    children: [
-                      Text(
-                        _showFullText
-                            ? originalText
-                            : (originalText.length > 25
-                                ? "${originalText.substring(0, 25)}..."
-                                : originalText),
-                        softWrap: true,
-                        style: const TextStyle(
-                          fontSize: Sizes.size16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: Center(
+                      child: AnimatedBuilder(
+                        animation: _animationController,
+                        builder: (context, child) {
+                          return Transform.scale(
+                            scale: _animationController.value,
+                            child: child,
+                          );
+                        },
+                        child: AnimatedOpacity(
+                            opacity: _isPaused ? 1 : 0,
+                            duration: _animationDuration,
+                            child: _isPaused
+                                ? const FaIcon(
+                                    FontAwesomeIcons.play,
+                                    color: Colors.white,
+                                    size: Sizes.size56,
+                                  )
+                                : const FaIcon(
+                                    FontAwesomeIcons.pause,
+                                    color: Colors.white,
+                                    size: Sizes.size56,
+                                  )),
                       ),
-                      if (originalText.length > 25)
-                        GestureDetector(
-                          onTap: _onTextTap,
-                          child: Text(
-                            _showFullText ? "See less" : "See more",
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 15,
+                  right: 100,
+                  bottom: 30,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "@Username",
+                        style: TextStyle(
+                            fontSize: Sizes.size20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Gaps.v14,
+                      const Text(
+                        "Where users leave their comment",
+                        style: TextStyle(
+                            fontSize: Sizes.size16, color: Colors.white),
+                      ),
+                      Gaps.v10,
+                      Wrap(
+                        children: [
+                          Text(
+                            _showFullText
+                                ? originalText
+                                : (originalText.length > 25
+                                    ? "${originalText.substring(0, 25)}..."
+                                    : originalText),
+                            softWrap: true,
                             style: const TextStyle(
-                              fontSize: Sizes.size14,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.w500,
+                              fontSize: Sizes.size16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                    ],
-                  ),
-                  Gaps.v14,
-                  const Row(
-                    children: [
-                      FaIcon(FontAwesomeIcons.music,
-                          size: Sizes.size20, color: Colors.white),
-                      Gaps.h10,
-                      Text(
-                        "Text Moving",
-                        style: TextStyle(color: Colors.white),
+                          if (originalText.length > 25)
+                            GestureDetector(
+                              onTap: _onTextTap,
+                              child: Text(
+                                _showFullText ? "See less" : "See more",
+                                style: const TextStyle(
+                                  fontSize: Sizes.size14,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      Gaps.v14,
+                      Row(
+                        children: [
+                          const FaIcon(FontAwesomeIcons.music,
+                              size: Sizes.size20, color: Colors.white),
+                          Gaps.h10,
+                          const Text(
+                            "Text Moving",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          if (kIsWeb)
+                            IconButton(
+                              onPressed: _onVolumePressed,
+                              icon: _volumeOnOff
+                                  ? const FaIcon(FontAwesomeIcons.volumeHigh,
+                                      color: Colors.white)
+                                  : const FaIcon(
+                                      FontAwesomeIcons.volumeOff,
+                                      color: Colors.white,
+                                    ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                  right: 20,
+                  bottom: 30,
+                  child: Column(
+                    children: [
+                      const CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        foregroundImage: NetworkImage(
+                            "https://avatars.githubusercontent.com/u/107906605?v=4"),
+                        child: Text("Edit"),
+                      ),
+                      const VideoButton(
+                          icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
+                      GestureDetector(
+                        onTap: () => _onCommentsTap(context),
+                        child: const VideoButton(
+                            icon: FontAwesomeIcons.solidMessage,
+                            text: "Message"),
+                      ),
+                      const VideoButton(
+                          icon: FontAwesomeIcons.share, text: "Share"),
+                      const VideoButton(
+                        icon: FontAwesomeIcons.music,
+                        text: "Music",
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Positioned(
-              right: 20,
-              bottom: 30,
-              child: Column(
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.circlePlus,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  const CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    foregroundImage: NetworkImage(
-                        "https://avatars.githubusercontent.com/u/107906605?v=4"),
-                    child: Text("Edit"),
-                  ),
-                  const VideoButton(
-                      icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
-                  GestureDetector(
-                    onTap: () => _onCommentsTap(context),
-                    child: const VideoButton(
-                        icon: FontAwesomeIcons.solidMessage, text: "Message"),
-                  ),
-                  const VideoButton(
-                      icon: FontAwesomeIcons.share, text: "Share"),
-                  const VideoButton(
-                    icon: FontAwesomeIcons.music,
-                    text: "Music",
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
