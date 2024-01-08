@@ -1,5 +1,6 @@
 import 'package:TikTok/constants/breakpoints.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -52,13 +53,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     firstDate: DateTime(1980),
                     lastDate: DateTime(2030),
                   );
-                  print(date);
+                  if (kDebugMode) {
+                    print(date);
+                  }
+                  if (!mounted) return;
+
                   if (date != null) {
                     final time = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
                     );
-                    print(time);
+                    if (kDebugMode) {
+                      print(time);
+                    }
+                    if (!mounted) return;
                     final booking = await showDateRangePicker(
                       context: context,
                       firstDate: DateTime(1980),
@@ -72,7 +80,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: child!);
                       },
                     );
-                    print(booking);
+                    if (kDebugMode) {
+                      print(booking);
+                    }
                   }
                 },
                 title: const Text("Set My Birthday"),

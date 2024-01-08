@@ -1,4 +1,5 @@
 import 'package:TikTok/constants/breakpoints.dart';
+import 'package:TikTok/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -273,8 +274,9 @@ class _VideoPostState extends State<VideoPost>
                             "https://avatars.githubusercontent.com/u/107906605?v=4"),
                         child: Text("Edit"),
                       ),
-                      const VideoButton(
-                          icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
+                      VideoButton(
+                          icon: FontAwesomeIcons.solidHeart,
+                          text: S.of(context).likeCount(987654231)),
                       GestureDetector(
                         onTap: () => _onCommentsTap(context),
                         child: const VideoButton(

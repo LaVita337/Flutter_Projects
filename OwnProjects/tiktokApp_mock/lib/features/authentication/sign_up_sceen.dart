@@ -1,3 +1,4 @@
+import 'package:TikTok/generated/l10n.dart';
 import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,12 +31,14 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
-        // if (orientation == Orientation.landscape) {
-        //   return const Scaffold(
-        //       body: Center(
-        //           child: Text(
-        //               'Please rotate your device to portrait mode to continue')));
-        // }
+        /*
+        if (orientation == Orientation.landscape) {
+          return const Scaffold(
+              body: Center(
+                  child: Text(
+                      'Please rotate your device to portrait mode to continue')));
+        }
+        */
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -45,12 +48,12 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     Gaps.v80,
                     Text(
-                      'Sign up for App',
+                      S.of(context).signUpTitle("App"),
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     Gaps.v20,
                     Text(
-                      'Create a profile, follow other accounts, make your own videos, and more.',
+                      S.of(context).signUpSubtitle(1),
                       style: TextStyle(
                         fontSize: Sizes.size16,
                         color: isDarkMode(context)
@@ -66,7 +69,7 @@ class SignUpScreen extends StatelessWidget {
                           FontAwesomeIcons.user,
                           size: Sizes.size20,
                         ),
-                        text: 'Use Email & Password'),
+                        text: S.of(context).useEmailPassword),
                     Gaps.v16,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
@@ -74,7 +77,7 @@ class SignUpScreen extends StatelessWidget {
                           FontAwesomeIcons.facebook,
                           size: Sizes.size20,
                         ),
-                        text: 'Sign up with Facebook'),
+                        text: S.of(context).signUpWithFacebook),
                     Gaps.v16,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
@@ -82,7 +85,7 @@ class SignUpScreen extends StatelessWidget {
                           FontAwesomeIcons.apple,
                           size: Sizes.size20,
                         ),
-                        text: 'Sign up with Apple'),
+                        text: S.of(context).signUpWithApple),
                     Gaps.v16,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
@@ -90,7 +93,7 @@ class SignUpScreen extends StatelessWidget {
                           FontAwesomeIcons.google,
                           size: Sizes.size20,
                         ),
-                        text: 'Sign up with Google'),
+                        text: S.of(context).signUpWithGoogle),
                     Gaps.v16,
                   ],
                 ),
@@ -105,9 +108,9 @@ class SignUpScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Already have an account?',
-                    style: TextStyle(
+                  Text(
+                    S.of(context).alreadyHaveAnAccount,
+                    style: const TextStyle(
                       fontSize: Sizes.size14,
                       fontWeight: FontWeight.w400,
                     ),
@@ -116,7 +119,7 @@ class SignUpScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () => _onLoginTap(context),
                     child: Text(
-                      'Log in',
+                      S.of(context).logIn("human"),
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: Sizes.size14,

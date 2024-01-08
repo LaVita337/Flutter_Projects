@@ -1,5 +1,5 @@
-import 'package:TikTok/features/main_navigation/main_navigation_screen.dart';
-
+import 'package:TikTok/features/authentication/sign_up_sceen.dart';
+import 'package:TikTok/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
 import 'package:flutter/services.dart';
@@ -23,17 +23,19 @@ class TickTokApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    S.load(const Locale("ko"));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'App Practice',
       localizationsDelegates: const [
+        S.delegate,
+        GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('ko', 'KR'),
+        Locale('en'),
+        Locale('ko'),
       ],
       themeMode: ThemeMode.system,
       theme: ThemeData(
@@ -131,7 +133,7 @@ class TickTokApp extends StatelessWidget {
           unselectedLabelColor: Colors.grey.shade700,
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const SignUpScreen(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:TikTok/generated/l10n.dart';
 import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,8 +46,8 @@ class _VideoCommentsState extends State<VideoComments> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text(
-            "Comments",
+          title: Text(
+            S.of(context).videoCommentCount(0, 0),
           ),
           actions: [
             IconButton(
