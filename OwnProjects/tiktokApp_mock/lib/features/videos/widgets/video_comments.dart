@@ -1,3 +1,4 @@
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
@@ -42,11 +43,11 @@ class _VideoCommentsState extends State<VideoComments> {
         borderRadius: BorderRadius.circular(Sizes.size14),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
           automaticallyImplyLeading: false,
-          title: const Text("Comments"),
+          title: const Text(
+            "Comments",
+          ),
           actions: [
             IconButton(
               onPressed: _onClosedPressed,
@@ -70,10 +71,10 @@ class _VideoCommentsState extends State<VideoComments> {
                   ),
                   separatorBuilder: (context, index) => Gaps.v20,
                   itemCount: 10,
-                  itemBuilder: (context, index) => const Row(
+                  itemBuilder: (context, index) => Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundColor: Colors.black54,
                         child: Text(
                           "Img",
@@ -90,10 +91,12 @@ class _VideoCommentsState extends State<VideoComments> {
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: Sizes.size14,
-                                  color: Colors.black54),
+                                  color: isDarkMode(context)
+                                      ? Colors.grey.shade100
+                                      : Colors.grey.shade900),
                             ),
                             Gaps.v1,
-                            Text(
+                            const Text(
                               "Where user leave their comment",
                               style: TextStyle(fontSize: Sizes.size14),
                             ),
@@ -104,13 +107,18 @@ class _VideoCommentsState extends State<VideoComments> {
                         children: [
                           FaIcon(
                             FontAwesomeIcons.heart,
-                            color: Colors.black38,
+                            color: isDarkMode(context)
+                                ? Colors.grey.shade100
+                                : Colors.black38,
                             size: Sizes.size20,
                           ),
                           Text(
                             "likes",
                             style: TextStyle(
-                                color: Colors.black38, fontSize: Sizes.size12),
+                                color: isDarkMode(context)
+                                    ? Colors.grey.shade100
+                                    : Colors.black38,
+                                fontSize: Sizes.size12),
                           ),
                         ],
                       ),
@@ -121,13 +129,14 @@ class _VideoCommentsState extends State<VideoComments> {
               Positioned(
                 bottom: 0,
                 width: size.width,
-                child: BottomAppBar(
+                child: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      top: 12,
+                      top: 16,
                       left: 20,
-                      right: 20,
-                      bottom: 12,
+                      right: 16,
+                      bottom: 32,
                     ),
                     child: Row(
                       children: [
@@ -149,6 +158,11 @@ class _VideoCommentsState extends State<VideoComments> {
                               expands: true,
                               minLines: null,
                               maxLines: null,
+                              style: TextStyle(
+                                color: isDarkMode(context)
+                                    ? Colors.grey.shade100
+                                    : Colors.black,
+                              ),
                               textInputAction: TextInputAction.newline,
                               cursorColor: Theme.of(context).primaryColor,
                               decoration: InputDecoration(
@@ -159,7 +173,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: Colors.grey.shade200,
+                                fillColor: isDarkMode(context)
+                                    ? Colors.grey.shade900
+                                    : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: Sizes.size14,
                                 ),
@@ -174,30 +190,37 @@ class _VideoCommentsState extends State<VideoComments> {
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        const FaIcon(
+                                        FaIcon(
                                           FontAwesomeIcons.at,
-                                          color: Colors.black54,
+                                          color: isDarkMode(context)
+                                              ? Colors.grey.shade300
+                                              : Colors.grey.shade800,
                                           size: 20,
                                         ),
-                                        Gaps.h14,
-                                        const FaIcon(
+                                        Gaps.h12,
+                                        FaIcon(
                                           FontAwesomeIcons.gift,
-                                          color: Colors.black54,
+                                          color: isDarkMode(context)
+                                              ? Colors.grey.shade300
+                                              : Colors.grey.shade800,
                                           size: 20,
                                         ),
-                                        Gaps.h14,
-                                        const FaIcon(
+                                        Gaps.h12,
+                                        FaIcon(
                                           FontAwesomeIcons.faceSmile,
-                                          color: Colors.black54,
+                                          color: isDarkMode(context)
+                                              ? Colors.grey.shade300
+                                              : Colors.grey.shade800,
                                           size: 20,
                                         ),
-                                        Gaps.h14,
+                                        Gaps.h12,
                                         if (_isWriting)
                                           GestureDetector(
                                             onTap: _stopWriting,
-                                            child: const FaIcon(
+                                            child: FaIcon(
                                               FontAwesomeIcons.circleArrowUp,
-                                              color: Colors.blueGrey,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
                                             ),
                                           ),
                                       ],

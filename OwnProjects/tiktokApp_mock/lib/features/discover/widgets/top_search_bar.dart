@@ -30,6 +30,10 @@ class _TopSearchBarState extends State<TopSearchBar> {
       controller: _textEditingController,
       onChanged: _onSearchChanged,
       onSubmitted: _onSearchSubmitted,
+      style: TextStyle(
+        color: Colors.grey.shade200,
+        fontSize: 16,
+      ),
       decoration: InputDecoration(
         hintText: "Search",
         hintStyle: const TextStyle(
@@ -55,7 +59,7 @@ class _TopSearchBarState extends State<TopSearchBar> {
           horizontal: 10,
         ),
         filled: true,
-        fillColor: Colors.grey[200],
+        fillColor: Colors.grey.shade900,
       ),
     );
   }

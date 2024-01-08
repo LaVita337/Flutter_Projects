@@ -1,3 +1,4 @@
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/sizes.dart';
@@ -63,7 +64,9 @@ class _PostVideoButtonState extends State<PostVideoButton>
                   height: 30,
                   width: 25,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade600,
+                    color: isDarkMode(context)
+                        ? Colors.white
+                        : Colors.grey.shade800,
                     borderRadius: BorderRadius.circular(Sizes.size12),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: Sizes.size12),
@@ -75,7 +78,9 @@ class _PostVideoButtonState extends State<PostVideoButton>
                   height: 30,
                   width: 25,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade600,
+                    color: isDarkMode(context)
+                        ? Colors.white
+                        : Colors.grey.shade800,
                     borderRadius: BorderRadius.circular(Sizes.size12),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: Sizes.size12),
@@ -85,7 +90,9 @@ class _PostVideoButtonState extends State<PostVideoButton>
                 height: 30,
                 padding: const EdgeInsets.symmetric(horizontal: Sizes.size10),
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDarkMode(context)
+                        ? Colors.grey.shade900
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(25)),
                 child: const Center(
                   child: FaIcon(

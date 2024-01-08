@@ -72,8 +72,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: "Email",
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1.5, color: Theme.of(context).primaryColor),
+                    ),
                   ),
                   validator: _isIdEmail,
                   onSaved: (newValue) {
@@ -86,8 +90,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: _obscureText,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: "Password",
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1.5, color: Theme.of(context).primaryColor),
+                    ),
                   ),
                   onSaved: (newValue) {
                     if (newValue != null) {

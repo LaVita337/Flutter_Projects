@@ -1,5 +1,6 @@
 import 'package:TikTok/constants/breakpoints.dart';
 import 'package:TikTok/constants/sizes.dart';
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,17 +13,21 @@ class PersistentTabBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final screenSize = MediaQuery.of(context).size;
-    print(screenSize.width);
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.symmetric(
-              horizontal: BorderSide(color: Colors.grey.shade200))),
+        color: Theme.of(context).appBarTheme.backgroundColor,
+        border: Border.symmetric(
+          horizontal: BorderSide(
+              color: isDarkMode(context)
+                  ? Colors.grey.shade700
+                  : Colors.grey.shade200),
+        ),
+      ),
       child: TabBar(
         indicatorSize: TabBarIndicatorSize.label,
-        indicatorColor: Colors.black,
+        indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
         labelPadding: const EdgeInsets.symmetric(vertical: Sizes.size10),
-        labelColor: Colors.black,
+        labelColor: isDarkMode(context) ? Colors.grey.shade200 : Colors.black,
         tabs: [
           Padding(
             padding: screenSize.width < Breakpoints.md

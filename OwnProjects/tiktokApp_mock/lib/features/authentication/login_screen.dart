@@ -1,3 +1,4 @@
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
@@ -34,19 +35,18 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               Gaps.v80,
-              const Text(
+              Text(
                 'Log in to App',
-                style: TextStyle(
-                  fontSize: Sizes.size24,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               Gaps.v20,
-              const Text(
+              Text(
                 'Manage your account, check notifications, comment on videos, and more.',
                 style: TextStyle(
                   fontSize: Sizes.size16,
-                  color: Colors.black54,
+                  color: isDarkMode(context)
+                      ? Colors.grey.shade300
+                      : Colors.black54,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -55,33 +55,45 @@ class LoginScreen extends StatelessWidget {
                 onTap: () => _onEmailLoginTap(context),
                 child: AuthButton(
                     onTapFunction: _onEmailLoginTap,
-                    icon: const FaIcon(FontAwesomeIcons.user),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.user,
+                      size: Sizes.size20,
+                    ),
                     text: 'Use Email & Password'),
               ),
               Gaps.v16,
               AuthButton(
                   onTapFunction: _onEmailLoginTap,
-                  icon: const FaIcon(FontAwesomeIcons.facebook),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.facebook,
+                    size: Sizes.size20,
+                  ),
                   text: 'Continue with Facebook'),
               Gaps.v16,
               AuthButton(
                   onTapFunction: _onEmailLoginTap,
-                  icon: const FaIcon(FontAwesomeIcons.apple),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.apple,
+                    size: Sizes.size20,
+                  ),
                   text: 'Continue with Apple'),
               Gaps.v16,
               AuthButton(
                   onTapFunction: _onEmailLoginTap,
-                  icon: const FaIcon(FontAwesomeIcons.google),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.google,
+                    size: Sizes.size20,
+                  ),
                   text: 'Continue with Google'),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade100,
-        elevation: 2,
+      bottomNavigationBar: Container(
+        color: isDarkMode(context) ? null : Colors.grey.shade100,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
+          padding:
+              const EdgeInsets.only(top: Sizes.size32, bottom: Sizes.size64),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -99,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                   'Sign up',
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
-                      fontSize: Sizes.size16,
+                      fontSize: Sizes.size14,
                       fontWeight: FontWeight.w600),
                 ),
               ),

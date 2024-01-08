@@ -1,3 +1,4 @@
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
@@ -43,41 +44,52 @@ class SignUpScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Gaps.v80,
-                    const Text(
+                    Text(
                       'Sign up for App',
-                      style: TextStyle(
-                        fontSize: Sizes.size24,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     Gaps.v20,
-                    const Text(
+                    Text(
                       'Create a profile, follow other accounts, make your own videos, and more.',
                       style: TextStyle(
                         fontSize: Sizes.size16,
-                        color: Colors.black54,
+                        color: isDarkMode(context)
+                            ? Colors.grey.shade300
+                            : Colors.black54,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     Gaps.v40,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
-                        icon: const FaIcon(FontAwesomeIcons.user),
+                        icon: const FaIcon(
+                          FontAwesomeIcons.user,
+                          size: Sizes.size20,
+                        ),
                         text: 'Use Email & Password'),
                     Gaps.v16,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
-                        icon: const FaIcon(FontAwesomeIcons.facebook),
+                        icon: const FaIcon(
+                          FontAwesomeIcons.facebook,
+                          size: Sizes.size20,
+                        ),
                         text: 'Sign up with Facebook'),
                     Gaps.v16,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
-                        icon: const FaIcon(FontAwesomeIcons.apple),
+                        icon: const FaIcon(
+                          FontAwesomeIcons.apple,
+                          size: Sizes.size20,
+                        ),
                         text: 'Sign up with Apple'),
                     Gaps.v16,
                     AuthButton(
                         onTapFunction: _onEmailSignUpTap,
-                        icon: const FaIcon(FontAwesomeIcons.google),
+                        icon: const FaIcon(
+                          FontAwesomeIcons.google,
+                          size: Sizes.size20,
+                        ),
                         text: 'Sign up with Google'),
                     Gaps.v16,
                   ],
@@ -85,11 +97,11 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
-            elevation: 2,
-            color: Colors.grey.shade50,
+          bottomNavigationBar: Container(
+            color: isDarkMode(context) ? null : Colors.grey.shade100,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
+              padding: const EdgeInsets.only(
+                  top: Sizes.size32, bottom: Sizes.size64),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -107,7 +119,7 @@ class SignUpScreen extends StatelessWidget {
                       'Log in',
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: Sizes.size16,
+                          fontSize: Sizes.size14,
                           fontWeight: FontWeight.w600),
                     ),
                   ),

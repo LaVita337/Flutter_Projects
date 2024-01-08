@@ -135,7 +135,9 @@ class _VideoPostState extends State<VideoPost>
       resizeToAvoidBottomInset: false,
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: Breakpoints.md),
+          constraints: const BoxConstraints(
+            maxWidth: Breakpoints.md,
+          ),
           child: VisibilityDetector(
             key: Key("${widget.index}"),
             onVisibilityChanged: _onVisibilityChanged,

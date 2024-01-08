@@ -68,7 +68,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
           ),
         ],
       ),
-      subtitle: const Text("Hey, what's up?"),
+      subtitle: const Text(
+        "Chat messages would be here",
+        style: TextStyle(color: Colors.grey),
+      ),
     );
   }
 

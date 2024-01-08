@@ -125,7 +125,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   style: TextStyle(fontSize: Sizes.size16),
                   textAlign: TextAlign.start,
                 ),
-                Gaps.v60,
+                Gaps.v40,
                 Wrap(
                   spacing: 15,
                   runSpacing: 30,
@@ -139,19 +139,18 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 2,
+      bottomNavigationBar: Container(
         child: Padding(
           padding: const EdgeInsets.only(
             top: Sizes.size10,
-            bottom: Sizes.size20,
+            bottom: Sizes.size64,
             left: Sizes.size32,
             right: Sizes.size32,
           ),
           child: GestureDetector(
             onTap: onNextTap,
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: Sizes.size14),
+              padding: const EdgeInsets.symmetric(vertical: Sizes.size12),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(Sizes.size32),

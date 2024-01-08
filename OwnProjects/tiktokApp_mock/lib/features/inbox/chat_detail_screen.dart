@@ -1,5 +1,6 @@
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -47,7 +48,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     decoration: BoxDecoration(
                       color: Colors.green,
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 1.5),
+                      border: Border.all(
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade900
+                              : Colors.white,
+                          width: 1.5),
                     ),
                   )),
             ],
@@ -57,18 +62,20 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             style: TextStyle(fontWeight: FontWeight.w600),
           ),
           subtitle: const Text("Active Now"),
-          trailing: const Row(
+          trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               FaIcon(
                 FontAwesomeIcons.flag,
-                color: Colors.black,
+                color:
+                    isDarkMode(context) ? Colors.grey.shade100 : Colors.black,
                 size: Sizes.size20,
               ),
               Gaps.h32,
               FaIcon(
                 FontAwesomeIcons.ellipsis,
-                color: Colors.black,
+                color:
+                    isDarkMode(context) ? Colors.grey.shade100 : Colors.black,
                 size: Sizes.size20,
               ),
             ],
@@ -106,9 +113,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                       topRight: Radius.circular(Sizes.size8),
                                       bottomLeft: Radius.circular(Sizes.size8)),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   "Hey",
-                                  style: TextStyle(fontSize: Sizes.size16),
+                                  style: TextStyle(
+                                      fontSize: Sizes.size16,
+                                      color: Colors.grey.shade900),
                                 ),
                               ),
                               Gaps.v4,
@@ -155,9 +164,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                     topRight: Radius.circular(Sizes.size8),
                                     bottomRight: Radius.circular(Sizes.size8)),
                               ),
-                              child: const Text(
+                              child: Text(
                                 "what's up?",
-                                style: TextStyle(fontSize: Sizes.size16),
+                                style: TextStyle(
+                                    fontSize: Sizes.size16,
+                                    color: Colors.grey.shade900),
                               ),
                             ),
                             Gaps.v4,
@@ -182,7 +193,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               child: BottomAppBar(
                 padding: const EdgeInsets.only(
                     top: Sizes.size10, left: Sizes.size20, right: Sizes.size20),
-                color: Colors.grey.shade200,
+                color: isDarkMode(context)
+                    ? Colors.grey.shade800
+                    : Colors.grey.shade200,
                 child: SizedBox(
                   height: Sizes.size52,
                   child: Row(
@@ -197,7 +210,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                 vertical: Sizes.size16,
                                 horizontal: Sizes.size16),
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: isDarkMode(context)
+                                ? Colors.grey.shade900
+                                : Colors.white,
                             hintText: "Type a message",
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -210,16 +225,21 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                           ),
                         ),
                       ),
-                      Gaps.h20,
+                      Gaps.h16,
                       Container(
-                        padding: const EdgeInsets.all(Sizes.size12),
+                        padding: const EdgeInsets.all(Sizes.size14),
                         decoration: BoxDecoration(
-                          color: Colors.grey[350],
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade900
+                              : Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: const FaIcon(
+                        child: FaIcon(
                           FontAwesomeIcons.paperPlane,
-                          size: 20,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade200
+                              : Colors.grey.shade900,
+                          size: Sizes.size18,
                         ),
                       )
                     ],

@@ -1,3 +1,4 @@
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
 
@@ -31,7 +32,11 @@ class _InterestButtonState extends State<InterestButton> {
         padding: const EdgeInsets.symmetric(
             vertical: Sizes.size12, horizontal: Sizes.size16),
         decoration: BoxDecoration(
-            color: _isSelected ? Colors.blueGrey.shade400 : Colors.white,
+            color: _isSelected
+                ? Theme.of(context).primaryColor
+                : isDarkMode(context)
+                    ? Colors.grey.shade500
+                    : Colors.white,
             borderRadius: BorderRadius.circular(
               Sizes.size32,
             ),

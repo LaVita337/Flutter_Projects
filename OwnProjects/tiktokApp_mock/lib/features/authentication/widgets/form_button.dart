@@ -1,3 +1,4 @@
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
 
@@ -16,7 +17,9 @@ class FormButton extends StatelessWidget {
       child: AnimatedContainer(
         decoration: BoxDecoration(
             color: disabled
-                ? Colors.grey.shade300
+                ? isDarkMode(context)
+                    ? Colors.grey.shade700
+                    : Colors.grey.shade400
                 : Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(Sizes.size20)),
         duration: const Duration(milliseconds: 200),

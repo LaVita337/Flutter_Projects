@@ -1,5 +1,6 @@
 import 'package:TikTok/constants/breakpoints.dart';
 import 'package:TikTok/features/discover/widgets/top_search_bar.dart';
+import 'package:TikTok/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,11 +41,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             splashFactory: NoSplash.splashFactory,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             isScrollable: true,
-            indicatorColor: Colors.black,
-            labelColor: Colors.black,
+            indicatorColor:
+                isDarkMode(context) ? Colors.grey.shade300 : Colors.black,
             labelStyle: const TextStyle(
                 fontWeight: FontWeight.w500, fontSize: Sizes.size14),
-            unselectedLabelColor: Colors.grey,
             tabs: [
               for (var tab in tabs)
                 Tab(
@@ -119,11 +119,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                         backgroundColor: Colors.black,
                                       ),
                                       Gaps.h3,
-                                      const Expanded(
+                                      Expanded(
                                         child: Text(
                                           "UserNameCouldBeLongerThanYouThought",
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
+                                          style: TextStyle(
+                                            fontSize: Sizes.size14,
+                                            fontWeight: FontWeight.w600,
+                                            color: isDarkMode(context)
+                                                ? Colors.grey.shade200
+                                                : Colors.grey,
+                                          ),
                                         ),
                                       ),
                                       FaIcon(
@@ -132,8 +139,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                         color: Colors.grey.shade600,
                                       ),
                                       Gaps.h3,
-                                      const Text(
+                                      Text(
                                         "4.3M",
+                                        style: TextStyle(
+                                          fontSize: Sizes.size14,
+                                          fontWeight: FontWeight.w600,
+                                          color: isDarkMode(context)
+                                              ? Colors.grey.shade200
+                                              : Colors.grey,
+                                        ),
                                       ),
                                     ],
                                   ),

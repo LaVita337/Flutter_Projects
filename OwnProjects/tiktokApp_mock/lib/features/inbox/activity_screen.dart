@@ -1,5 +1,6 @@
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
+import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -140,22 +141,29 @@ class _ActivityScreenState extends State<ActivityScreen>
                     leading: Container(
                       width: Sizes.size52,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade400),
-                        shape: BoxShape.circle,
-                      ),
+                          border: Border.all(
+                              color: isDarkMode(context)
+                                  ? Colors.grey.shade800
+                                  : Colors.grey.shade400),
+                          shape: BoxShape.circle,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade800
+                              : Colors.white),
                       child: const Center(
                         child: FaIcon(
                           FontAwesomeIcons.bell,
-                          color: Colors.black,
-                          size: 20,
+                          size: Sizes.size20,
                         ),
                       ),
                     ),
                     title: RichText(
                       text: TextSpan(
                         text: "Account updates:",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.black),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: isDarkMode(context)
+                                ? Colors.grey.shade200
+                                : Colors.grey.shade800),
                         children: [
                           const TextSpan(
                             text: " New features are coming soon!",
@@ -184,9 +192,9 @@ class _ActivityScreenState extends State<ActivityScreen>
           SlideTransition(
             position: _panelAnimation,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(
                     Sizes.size5,
                   ),
@@ -202,10 +210,9 @@ class _ActivityScreenState extends State<ActivityScreen>
                     ListTile(
                       title: Row(
                         children: [
-                          FaIcon(
+                          Icon(
                             tab["icon"],
-                            color: Colors.black,
-                            size: 20,
+                            size: Sizes.size16,
                           ),
                           Gaps.h20,
                           Text(
