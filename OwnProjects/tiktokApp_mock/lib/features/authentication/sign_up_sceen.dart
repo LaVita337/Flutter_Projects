@@ -1,30 +1,45 @@
+import 'package:TikTok/features/authentication/login_screen.dart';
+import 'package:TikTok/features/authentication/username_screen.dart';
+
 import 'package:TikTok/generated/l10n.dart';
 import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
-import 'package:TikTok/features/authentication/login_screen.dart';
-import 'package:TikTok/features/authentication/username_screen.dart';
 import 'package:TikTok/features/authentication/widgets/auth_button.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatelessWidget {
+  static String routeURL = "/";
+  static String routeName = "signUp";
   const SignUpScreen({super.key});
 
-  void _onLoginTap(BuildContext context) {
-    Navigator.of(context).pop(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+  void _onLoginTap(BuildContext context) async {
+    context.push(LoginScreen.routeName);
   }
 
   void _onEmailSignUpTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const UsernameScreen(),
-      ),
-    );
+    /* Navigator.of(context).push(
+      PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const UsernameScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final offsetAnimation =
+                Tween(begin: const Offset(0, -1), end: Offset.zero)
+                    .animate(animation);
+            final opacityAnimation =
+                Tween(begin: 0.0, end: 1.0).animate(animation);
+            return SlideTransition(
+              position: offsetAnimation,
+              child: FadeTransition(
+                opacity: opacityAnimation,
+                child: child,
+              ),
+            );
+          }),
+    ); */
+    context.pushNamed(UsernameScreen.routeName);
   }
 
   @override

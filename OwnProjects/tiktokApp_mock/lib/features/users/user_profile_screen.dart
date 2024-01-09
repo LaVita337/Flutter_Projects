@@ -9,7 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  final String username;
+  final String tab;
+
+  const UserProfileScreen({
+    super.key,
+    required this.username,
+    required this.tab,
+  });
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -29,13 +36,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: SafeArea(
         child: DefaultTabController(
+          initialIndex: widget.tab == "likes" ? 1 : 0,
           length: 2,
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 if (screenSize.width < Breakpoints.md)
                   SliverAppBar(
-                    title: const Text('Channel Name'),
+                    title: Text(widget.username),
                     actions: [
                       IconButton(
                           onPressed: _onGearPress,
@@ -239,9 +247,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
-                                  "@User Name",
-                                  style: TextStyle(
+                                Text(
+                                  "@${widget.username}",
+                                  style: const TextStyle(
                                       fontSize: Sizes.size16,
                                       fontWeight: FontWeight.w600),
                                 ),
