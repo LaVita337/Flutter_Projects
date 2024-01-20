@@ -1,12 +1,15 @@
 import 'package:TikTok/constants/breakpoints.dart';
+import 'package:TikTok/features/videos/view_models/playback_config_viewmodel.dart';
+import 'package:TikTok/features/videos/views/widgets/video_comments.dart';
+import 'package:TikTok/features/videos/views/widgets/video_sideButton.dart';
 import 'package:TikTok/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
-import 'package:TikTok/features/videos/widgets/video_comments.dart';
-import 'package:TikTok/features/videos/widgets/video_sideButton.dart';
+import 'package:provider/provider.dart';
+
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -29,7 +32,8 @@ class _VideoPostState extends State<VideoPost>
 
   bool _showFullText = false;
   bool _isPaused = false;
-  bool _volumeOnOff = false;
+
+  late ValueNotifier<bool> _isMutedLocally;
 
   final Duration _animationDuration = const Duration(milliseconds: 100);
 
@@ -49,17 +53,6 @@ class _VideoPostState extends State<VideoPost>
   void _onTextTap() {
     setState(() {
       _showFullText = !_showFullText;
-    });
-  }
-
-  void _onVolumePressed() {
-    setState(() {
-      _volumeOnOff = !_volumeOnOff;
-      if (_volumeOnOff) {
-        _videoPlayerController.setVolume(1);
-      } else {
-        _videoPlayerController.setVolume(0);
-      }
     });
   }
 
@@ -94,6 +87,33 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+
+    final initialMuted = context.read<PlaybackConfigViewModel>().muted;
+    if (initialMuted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
+
+    _isMutedLocally =
+        ValueNotifier(context.read<PlaybackConfigViewModel>().muted);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final muted = context.watch<PlaybackConfigViewModel>().muted;
+
+    // 전역 음소거 설정이 변경된 경우 로컬 상태 업데이트
+    if (_isMutedLocally.value != muted) {
+      _isMutedLocally.value = muted;
+
+      if (muted) {
+        _videoPlayerController.setVolume(0);
+      } else {
+        _videoPlayerController.setVolume(1);
+      }
+    }
   }
 
   @override
@@ -104,10 +124,14 @@ class _VideoPostState extends State<VideoPost>
 
   void _onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
+
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      _videoPlayerController.play();
+      final autoPlay = context.read<PlaybackConfigViewModel>().autoPlay;
+      if (autoPlay) {
+        _videoPlayerController.play();
+      }
     }
     if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
       _onTogglePause();
@@ -131,6 +155,7 @@ class _VideoPostState extends State<VideoPost>
   Widget build(BuildContext context) {
     const String originalText =
         "#Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+    print("Build() Muted value: ${_isMutedLocally.value}");
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -186,6 +211,28 @@ class _VideoPostState extends State<VideoPost>
                   ),
                 ),
                 Positioned(
+                  top: 40,
+                  left: 20,
+                  child: ValueListenableBuilder<bool>(
+                    valueListenable: _isMutedLocally,
+                    builder: (context, isMuted, child) {
+                      return IconButton(
+                        onPressed: () {
+                          // ValueNotifier 상태 업데이트
+                          _isMutedLocally.value = !isMuted;
+                          _videoPlayerController.setVolume(isMuted ? 1 : 0);
+                        },
+                        icon: FaIcon(
+                          isMuted
+                              ? FontAwesomeIcons.volumeXmark
+                              : FontAwesomeIcons.volumeHigh,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
                   left: 15,
                   right: 100,
                   bottom: 30,
@@ -236,26 +283,15 @@ class _VideoPostState extends State<VideoPost>
                         ],
                       ),
                       Gaps.v14,
-                      Row(
+                      const Row(
                         children: [
-                          const FaIcon(FontAwesomeIcons.music,
+                          FaIcon(FontAwesomeIcons.music,
                               size: Sizes.size20, color: Colors.white),
                           Gaps.h10,
-                          const Text(
+                          Text(
                             "Text Moving",
                             style: TextStyle(color: Colors.white),
                           ),
-                          if (kIsWeb)
-                            IconButton(
-                              onPressed: _onVolumePressed,
-                              icon: _volumeOnOff
-                                  ? const FaIcon(FontAwesomeIcons.volumeHigh,
-                                      color: Colors.white)
-                                  : const FaIcon(
-                                      FontAwesomeIcons.volumeOff,
-                                      color: Colors.white,
-                                    ),
-                            ),
                         ],
                       ),
                     ],

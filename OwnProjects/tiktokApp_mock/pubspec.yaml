@@ -40,8 +40,15 @@ dependencies:
   font_awesome_flutter: 10.3.0
   video_player: ^2.7.2
   visibility_detector: 0.3.3
-  google_fonts: ^6.1.0
+  google_fonts: ^4.0.4
   go_router: 6.0.1
+  camera: ^0.10.5+9
+  permission_handler: ^11.0.1
+  gallery_saver: ^2.3.2
+  image_picker: ^1.0.7
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
+
 
 dev_dependencies:
   flutter_test:

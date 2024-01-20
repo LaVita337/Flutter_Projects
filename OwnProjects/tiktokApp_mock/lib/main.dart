@@ -1,9 +1,13 @@
+import 'package:TikTok/features/videos/repos/playback_config_repo.dart';
+import 'package:TikTok/features/videos/view_models/playback_config_viewmodel.dart';
 import 'package:TikTok/generated/l10n.dart';
 import 'package:TikTok/router.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +18,24 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-  runApp(const TickTokApp());
+  final preferences = await SharedPreferences.getInstance();
+  final repository = PlaybackConfigRepository(preferences);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PlaybackConfigViewModel(repository),
+        ),
+      ],
+      child: const SocialNetworkApp(),
+    ),
+  );
 }
 
-class TickTokApp extends StatelessWidget {
-  const TickTokApp({super.key});
+class SocialNetworkApp extends StatelessWidget {
+  const SocialNetworkApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     S.load(const Locale("en"));
@@ -44,34 +59,34 @@ class TickTokApp extends StatelessWidget {
         brightness: Brightness.light,
         textTheme: Typography.blackMountainView,
         /* Material Type Scale
-        TextTheme(
-          displayLarge: GoogleFonts.openSans(
-              fontSize: 96, fontWeight: FontWeight.w300, letterSpacing: -1.5),
-          displayMedium: GoogleFonts.openSans(
-              fontSize: 60, fontWeight: FontWeight.w300, letterSpacing: -0.5),
-          displaySmall:
-              GoogleFonts.openSans(fontSize: 48, fontWeight: FontWeight.w400),
-          headlineMedium: GoogleFonts.openSans(
-              fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-          headlineSmall:
-              GoogleFonts.openSans(fontSize: 24, fontWeight: FontWeight.w400),
-          titleLarge: GoogleFonts.openSans(
-              fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
-          titleMedium: GoogleFonts.openSans(
-              fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
-          titleSmall: GoogleFonts.openSans(
-              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-          bodyLarge: GoogleFonts.roboto(
-              fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
-          bodyMedium: GoogleFonts.roboto(
-              fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-          labelLarge: GoogleFonts.roboto(
-              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
-          bodySmall: GoogleFonts.roboto(
-              fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-          labelSmall: GoogleFonts.roboto(
-              fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
-        ),*/
+          TextTheme(
+            displayLarge: GoogleFonts.openSans(
+                fontSize: 96, fontWeight: FontWeight.w300, letterSpacing: -1.5),
+            displayMedium: GoogleFonts.openSans(
+                fontSize: 60, fontWeight: FontWeight.w300, letterSpacing: -0.5),
+            displaySmall:
+                GoogleFonts.openSans(fontSize: 48, fontWeight: FontWeight.w400),
+            headlineMedium: GoogleFonts.openSans(
+                fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+            headlineSmall:
+                GoogleFonts.openSans(fontSize: 24, fontWeight: FontWeight.w400),
+            titleLarge: GoogleFonts.openSans(
+                fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+            titleMedium: GoogleFonts.openSans(
+                fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
+            titleSmall: GoogleFonts.openSans(
+                fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+            bodyLarge: GoogleFonts.roboto(
+                fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+            bodyMedium: GoogleFonts.roboto(
+                fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+            labelLarge: GoogleFonts.roboto(
+                fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
+            bodySmall: GoogleFonts.roboto(
+                fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+            labelSmall: GoogleFonts.roboto(
+                fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
+          ),*/
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFE9435A),
           selectionHandleColor: Color(0xFFE9435A),

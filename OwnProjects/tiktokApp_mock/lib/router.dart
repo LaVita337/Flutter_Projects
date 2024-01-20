@@ -1,61 +1,82 @@
-import 'package:TikTok/features/authentication/email_screen.dart';
-
+import 'package:TikTok/common/main_navigation/main_navigation_screen.dart';
+import 'package:TikTok/features/authentication/login_screen.dart';
 import 'package:TikTok/features/authentication/sign_up_sceen.dart';
-import 'package:TikTok/features/authentication/username_screen.dart';
-import 'package:TikTok/features/users/user_profile_screen.dart';
+import 'package:TikTok/features/inbox/activity_screen.dart';
+import 'package:TikTok/features/inbox/chat_detail_screen.dart';
+import 'package:TikTok/features/inbox/chats_screen.dart';
+import 'package:TikTok/features/onboarding/interests_screen.dart';
+import 'package:TikTok/features/videos/views/video_recording_screen.dart';
+
+import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
+  initialLocation: "/inbox",
   routes: [
     GoRoute(
-      name: SignUpScreen.routeName,
       path: SignUpScreen.routeURL,
+      name: SignUpScreen.routeName,
       builder: (context, state) => const SignUpScreen(),
-      routes: [
-        GoRoute(
-            path: UsernameScreen.routeURL,
-            name: UsernameScreen.routeName,
-            builder: (context, state) => const UsernameScreen(),
-            routes: [
-              GoRoute(
-                path: EmailScreen.routeURL,
-                name: EmailScreen.routeName,
-                builder: (context, state) {
-                  final args = state.extra as EmailScreenArguments;
-                  return EmailScreen(username: args.username);
-                },
-              ),
-            ]),
-      ],
+      routes: const [],
     ),
-    /* GoRoute(
-      path: LoginScreen.routeName,
+    GoRoute(
+      path: LoginScreen.routeURL,
+      name: LoginScreen.routeName,
       builder: (context, state) => const LoginScreen(),
-    ), */
-    /* GoRoute(
-      name: "username_screen",
-      path: UsernameScreen.routeName,
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          child: const UsernameScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: ScaleTransition(scale: animation, child: child),
-            );
-          },
+    ),
+    GoRoute(
+      path: InterestsScreen.routeURL,
+      name: InterestsScreen.routeName,
+      builder: (context, state) => const InterestsScreen(),
+    ),
+    GoRoute(
+      path: "/:tab(home|discover|inbox|profile)",
+      name: MainNavigationScreen.routeName,
+      builder: (context, state) {
+        final tab = state.params["tab"]!;
+        return MainNavigationScreen(
+          tab: tab,
         );
       },
-    ), */
-
+    ),
     GoRoute(
-      path: "/users/:username",
-      builder: (context, state) {
-        final username = state.params["username"];
-        final tab = state.queryParams["show"];
-        return UserProfileScreen(username: username!, tab: tab!);
-      },
-    )
+      path: ActivityScreen.routeURL,
+      name: ActivityScreen.routeName,
+      builder: (context, state) => const ActivityScreen(),
+    ),
+    GoRoute(
+      path: ChatsScreen.routeURL,
+      name: ChatsScreen.routeName,
+      builder: (context, state) => const ChatsScreen(),
+      routes: [
+        GoRoute(
+          path: ChatDetailScreen.routeURL,
+          name: ChatDetailScreen.routeName,
+          builder: (context, state) {
+            final chatId = state.params["chatId"]!;
+            return ChatDetailScreen(
+              chatId: chatId,
+            );
+          },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: VideoRecordingScreen.routeURL,
+      name: VideoRecordingScreen.routeName,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        transitionDuration: const Duration(milliseconds: 100),
+        child: const VideoRecordingScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final position = Tween(begin: const Offset(0, 1), end: Offset.zero)
+              .animate(animation);
+          return SlideTransition(
+            position: position,
+            child: child,
+          );
+        },
+      ),
+    ),
   ],
 );

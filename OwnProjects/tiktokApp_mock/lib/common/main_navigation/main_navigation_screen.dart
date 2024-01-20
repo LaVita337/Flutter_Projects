@@ -1,41 +1,45 @@
 import 'package:TikTok/features/inbox/inbox_screen.dart';
 import 'package:TikTok/features/users/user_profile_screen.dart';
+import 'package:TikTok/features/videos/views/video_recording_screen.dart';
+import 'package:TikTok/features/videos/views/video_timeline_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
 import 'package:TikTok/features/discover/discover_screen.dart';
-import 'package:TikTok/features/main_navigation/widgets/nav_tab.dart';
-import 'package:TikTok/features/main_navigation/widgets/post_video_button.dart';
-import 'package:TikTok/features/videos/video_timeline_screen.dart';
+import 'package:TikTok/common/main_navigation/widgets/nav_tab.dart';
+import 'package:TikTok/common/main_navigation/widgets/post_video_button.dart';
+import 'package:go_router/go_router.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  static String routeName = "mainNavigation";
+
+  final String tab;
+  const MainNavigationScreen({super.key, required this.tab});
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  final List<String> _tabs = [
+    "home",
+    "discover",
+    "postVideo",
+    "inbox",
+    "profile"
+  ];
+  late int _selectedIndex = _tabs.indexOf(widget.tab);
 
   void _onTap(int index) {
+    context.go("/${_tabs[index]}");
     setState(() {
       _selectedIndex = index;
     });
   }
 
   void _onPostVideoButtonTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text("Record video"),
-          ),
-        ),
-        fullscreenDialog: true,
-      ),
-    );
+    context.pushNamed(VideoRecordingScreen.routeName);
   }
 
   @override
@@ -53,11 +57,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             child: const DiscoverScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 2,
+            offstage: _selectedIndex != 3,
             child: const InboxScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 3,
+            offstage: _selectedIndex != 4,
             child: const UserProfileScreen(username: "Dave", tab: ""),
           ),
         ],
@@ -87,25 +91,24 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               ),
               Gaps.h24,
               GestureDetector(
-                child: PostVideoButton(
-                  onTap: _onPostVideoButtonTap,
-                ),
+                onTap: _onPostVideoButtonTap,
+                child: const PostVideoButton(),
               ),
               Gaps.h24,
               NavTab(
                 text: "Inbox",
-                isSelected: _selectedIndex == 2,
+                isSelected: _selectedIndex == 3,
                 icon: FontAwesomeIcons.message,
                 selectedIcon: FontAwesomeIcons.message,
-                onTap: () => _onTap(2),
+                onTap: () => _onTap(3),
                 selectedIndex: _selectedIndex,
               ),
               NavTab(
                 text: "My",
-                isSelected: _selectedIndex == 3,
+                isSelected: _selectedIndex == 4,
                 icon: FontAwesomeIcons.faceSmile,
                 selectedIcon: FontAwesomeIcons.faceSmile,
-                onTap: () => _onTap(3),
+                onTap: () => _onTap(4),
                 selectedIndex: _selectedIndex,
               ),
             ],

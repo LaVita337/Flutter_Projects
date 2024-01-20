@@ -1,7 +1,9 @@
 import 'package:TikTok/constants/breakpoints.dart';
+import 'package:TikTok/features/videos/view_models/playback_config_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -31,6 +33,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
           constraints: const BoxConstraints(maxWidth: Breakpoints.md),
           child: ListView(
             children: [
+              SwitchListTile.adaptive(
+                value: context.watch<PlaybackConfigViewModel>().muted,
+                onChanged: (value) {
+                  context.read<PlaybackConfigViewModel>().setMuted(value);
+                },
+                title: const Text("Mute video"),
+                subtitle: const Text("Video will be muted by default"),
+              ),
+              SwitchListTile.adaptive(
+                value: context.watch<PlaybackConfigViewModel>().autoPlay,
+                onChanged: (value) =>
+                    context.read<PlaybackConfigViewModel>().setAutoPlay(value),
+                title: const Text("Auto play"),
+                subtitle: const Text("Video will be auto played by default"),
+              ),
               SwitchListTile.adaptive(
                 value: _notifications,
                 onChanged: _onNotificationChanged,
