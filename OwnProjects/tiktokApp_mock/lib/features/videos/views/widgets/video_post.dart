@@ -1,29 +1,29 @@
 import 'package:TikTok/constants/breakpoints.dart';
-import 'package:TikTok/features/videos/view_models/playback_config_viewmodel.dart';
+import 'package:TikTok/features/videos/view_models/playback_config_vm.dart';
 import 'package:TikTok/features/videos/views/widgets/video_comments.dart';
 import 'package:TikTok/features/videos/views/widgets/video_sideButton.dart';
 import 'package:TikTok/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
-import 'package:provider/provider.dart';
 
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
   const VideoPost(
       {super.key, required this.onVideoFinished, required this.index});
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset("assets/videos/video1.mp4");
@@ -33,7 +33,7 @@ class _VideoPostState extends State<VideoPost>
   bool _showFullText = false;
   bool _isPaused = false;
 
-  late ValueNotifier<bool> _isMutedLocally;
+  // late ValueNotifier<bool> _isMutedLocally;
 
   final Duration _animationDuration = const Duration(milliseconds: 100);
 
@@ -88,32 +88,36 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
-    final initialMuted = context.read<PlaybackConfigViewModel>().muted;
-    if (initialMuted) {
-      _videoPlayerController.setVolume(0);
-    } else {
-      _videoPlayerController.setVolume(1);
-    }
+    // context
+    //     .read<PlaybackConfigViewModel>()
+    //     .addListener(_onPlaybackConfigChanged);
 
-    _isMutedLocally =
-        ValueNotifier(context.read<PlaybackConfigViewModel>().muted);
+    // final initialMuted = context.read<PlaybackConfigViewModel>().muted;
+    // if (initialMuted) {
+    //   _videoPlayerController.setVolume(0);
+    // } else {
+    //   _videoPlayerController.setVolume(1);
+    // }
+
+    // _isMutedLocally =
+    //     ValueNotifier(context.read<PlaybackConfigViewModel>().muted);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final muted = context.watch<PlaybackConfigViewModel>().muted;
+    // final muted = context.watch<PlaybackConfigViewModel>().muted;
 
-    // 전역 음소거 설정이 변경된 경우 로컬 상태 업데이트
-    if (_isMutedLocally.value != muted) {
-      _isMutedLocally.value = muted;
+    // // 전역 음소거 설정이 변경된 경우 로컬 상태 업데이트
+    // if (_isMutedLocally.value != muted) {
+    //   _isMutedLocally.value = muted;
 
-      if (muted) {
-        _videoPlayerController.setVolume(0);
-      } else {
-        _videoPlayerController.setVolume(1);
-      }
-    }
+    //   if (muted) {
+    //     _videoPlayerController.setVolume(0);
+    //   } else {
+    //     _videoPlayerController.setVolume(1);
+    //   }
+    // }
   }
 
   @override
@@ -122,14 +126,24 @@ class _VideoPostState extends State<VideoPost>
     super.dispose();
   }
 
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+    final muted = ref.read(playbackConfigProvider).muted;
+    ref.read(playbackConfigProvider.notifier).setMuted(!muted);
+    if (muted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
+  }
+
   void _onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
 
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      final autoPlay = context.read<PlaybackConfigViewModel>().autoPlay;
-      if (autoPlay) {
+      if (ref.read(playbackConfigProvider).autoPlay) {
         _videoPlayerController.play();
       }
     }
@@ -155,7 +169,6 @@ class _VideoPostState extends State<VideoPost>
   Widget build(BuildContext context) {
     const String originalText =
         "#Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-    print("Build() Muted value: ${_isMutedLocally.value}");
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -213,23 +226,14 @@ class _VideoPostState extends State<VideoPost>
                 Positioned(
                   top: 40,
                   left: 20,
-                  child: ValueListenableBuilder<bool>(
-                    valueListenable: _isMutedLocally,
-                    builder: (context, isMuted, child) {
-                      return IconButton(
-                        onPressed: () {
-                          // ValueNotifier 상태 업데이트
-                          _isMutedLocally.value = !isMuted;
-                          _videoPlayerController.setVolume(isMuted ? 1 : 0);
-                        },
-                        icon: FaIcon(
-                          isMuted
-                              ? FontAwesomeIcons.volumeXmark
-                              : FontAwesomeIcons.volumeHigh,
-                          color: Colors.white,
-                        ),
-                      );
-                    },
+                  child: IconButton(
+                    onPressed: _onPlaybackConfigChanged,
+                    icon: FaIcon(
+                      ref.watch(playbackConfigProvider).muted
+                          ? FontAwesomeIcons.volumeXmark
+                          : FontAwesomeIcons.volumeHigh,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 Positioned(

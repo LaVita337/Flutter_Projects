@@ -1,16 +1,22 @@
 import 'package:TikTok/features/videos/repos/playback_config_repo.dart';
-import 'package:TikTok/features/videos/view_models/playback_config_viewmodel.dart';
+import 'package:TikTok/features/videos/view_models/playback_config_vm.dart';
+import 'package:TikTok/firebase_options.dart';
 import 'package:TikTok/generated/l10n.dart';
 import 'package:TikTok/router.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:TikTok/constants/sizes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
@@ -22,25 +28,21 @@ void main() async {
   final repository = PlaybackConfigRepository(preferences);
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => PlaybackConfigViewModel(repository),
-        ),
-      ],
-      child: const SocialNetworkApp(),
-    ),
+    ProviderScope(overrides: [
+      playbackConfigProvider
+          .overrideWith(() => PlaybackConfigViewModel(repository))
+    ], child: const SocialNetworkApp()),
   );
 }
 
-class SocialNetworkApp extends StatelessWidget {
+class SocialNetworkApp extends ConsumerWidget {
   const SocialNetworkApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     S.load(const Locale("en"));
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       title: 'App Practice',
       localizationsDelegates: const [
