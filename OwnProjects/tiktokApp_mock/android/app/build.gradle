@@ -64,4 +64,12 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Firebase BoM (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:32.7.1')
+
+    // Firebase Authentication
+    implementation 'com.google.firebase:firebase-auth'
+
+    // 필요한 다른 Firebase 라이브러리나 종속성들을 여기에 추가할 수 있습니다.
+}

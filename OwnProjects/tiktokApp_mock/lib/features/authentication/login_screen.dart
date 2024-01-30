@@ -1,5 +1,7 @@
+import 'package:TikTok/features/authentication/view_models/social_auth_view_model.dart';
 import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
@@ -8,7 +10,7 @@ import 'package:TikTok/features/authentication/login_form_screen.dart';
 import 'package:TikTok/features/authentication/widgets/auth_button.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   static String routeName = "loginScreen";
   static String routeURL = "/login";
   const LoginScreen({super.key});
@@ -27,7 +29,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -53,34 +55,34 @@ class LoginScreen extends StatelessWidget {
               Gaps.v40,
               GestureDetector(
                 onTap: () => _onEmailLoginTap(context),
-                child: AuthButton(
-                    onTapFunction: _onEmailLoginTap,
-                    icon: const FaIcon(
+                child: const AuthButton(
+                    icon: FaIcon(
                       FontAwesomeIcons.user,
                       size: Sizes.size20,
                     ),
                     text: 'Use Email & Password'),
               ),
               Gaps.v16,
-              AuthButton(
-                  onTapFunction: _onEmailLoginTap,
-                  icon: const FaIcon(
-                    FontAwesomeIcons.facebook,
-                    size: Sizes.size20,
-                  ),
-                  text: 'Continue with Facebook'),
+              GestureDetector(
+                onTap: () =>
+                    ref.read(socialAuthProvider.notifier).githubSignIn(context),
+                child: const AuthButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.github,
+                      size: Sizes.size20,
+                    ),
+                    text: 'Continue with GitHub'),
+              ),
               Gaps.v16,
-              AuthButton(
-                  onTapFunction: _onEmailLoginTap,
-                  icon: const FaIcon(
+              const AuthButton(
+                  icon: FaIcon(
                     FontAwesomeIcons.apple,
                     size: Sizes.size20,
                   ),
                   text: 'Continue with Apple'),
               Gaps.v16,
-              AuthButton(
-                  onTapFunction: _onEmailLoginTap,
-                  icon: const FaIcon(
+              const AuthButton(
+                  icon: FaIcon(
                     FontAwesomeIcons.google,
                     size: Sizes.size20,
                   ),

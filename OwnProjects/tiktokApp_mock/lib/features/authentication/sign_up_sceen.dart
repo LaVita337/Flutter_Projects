@@ -1,16 +1,18 @@
 import 'package:TikTok/features/authentication/login_screen.dart';
 import 'package:TikTok/features/authentication/username_screen.dart';
+import 'package:TikTok/features/authentication/view_models/social_auth_view_model.dart';
 
 import 'package:TikTok/generated/l10n.dart';
 import 'package:TikTok/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:TikTok/constants/gaps.dart';
 import 'package:TikTok/constants/sizes.dart';
 import 'package:TikTok/features/authentication/widgets/auth_button.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends ConsumerWidget {
   static String routeURL = "/";
   static String routeName = "signUp";
   const SignUpScreen({super.key});
@@ -48,7 +50,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return OrientationBuilder(
       builder: (context, orientation) {
         /*
@@ -83,24 +85,29 @@ class SignUpScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     Gaps.v40,
-                    AuthButton(
-                        onTapFunction: _onEmailSignUpTap,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.user,
-                          size: Sizes.size20,
-                        ),
-                        text: S.of(context).useEmailPassword),
+                    GestureDetector(
+                      onTap: () => _onEmailSignUpTap(context),
+                      child: AuthButton(
+                          icon: const FaIcon(
+                            FontAwesomeIcons.user,
+                            size: Sizes.size20,
+                          ),
+                          text: S.of(context).useEmailPassword),
+                    ),
+                    Gaps.v16,
+                    GestureDetector(
+                      onTap: () => ref
+                          .read(socialAuthProvider.notifier)
+                          .githubSignIn(context),
+                      child: const AuthButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.github,
+                            size: Sizes.size20,
+                          ),
+                          text: 'Continue with GitHub'),
+                    ),
                     Gaps.v16,
                     AuthButton(
-                        onTapFunction: _onEmailSignUpTap,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.facebook,
-                          size: Sizes.size20,
-                        ),
-                        text: S.of(context).signUpWithFacebook),
-                    Gaps.v16,
-                    AuthButton(
-                        onTapFunction: _onEmailSignUpTap,
                         icon: const FaIcon(
                           FontAwesomeIcons.apple,
                           size: Sizes.size20,
@@ -108,7 +115,6 @@ class SignUpScreen extends StatelessWidget {
                         text: S.of(context).signUpWithApple),
                     Gaps.v16,
                     AuthButton(
-                        onTapFunction: _onEmailSignUpTap,
                         icon: const FaIcon(
                           FontAwesomeIcons.google,
                           size: Sizes.size20,

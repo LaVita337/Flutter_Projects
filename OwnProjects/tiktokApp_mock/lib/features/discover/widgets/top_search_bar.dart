@@ -7,9 +7,9 @@ class TopSearchBar extends StatefulWidget {
   State<TopSearchBar> createState() => _TopSearchBarState();
 }
 
-final TextEditingController _textEditingController = TextEditingController();
-
 class _TopSearchBarState extends State<TopSearchBar> {
+  final TextEditingController _textEditingController = TextEditingController();
+
   void _onSearchChanged(String value) {
     print(value);
   }
