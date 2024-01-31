@@ -1,10 +1,5 @@
 # AI Butget App
 
-
-
-<img src="assets/images/AIbudget_main_screen.png" alt="AIbudget Main Screen" width="280">
-<img src="assets/images/AIbudget_report_screen.png" alt="AIbudget Report Screen" width="272">
-
 ## 프로젝트 소개
 
 'AI Budget'은 대회 기간 동안 개발된 앱으로, 사용자의 재정 관리를 돕기 위해 설계되었습니다. 이 앱은 직관적인 사용자 인터페이스와 함께 재정 상황을 한눈에 볼 수 있는 캘린더 뷰, 지출 및 수입 추적 기능을 제공합니다.
@@ -21,3 +16,7 @@
 ## 향후 계획
 
 앱의 백엔드 서비스와 API를 재구성하여, 실제 데이터를 처리하고 사용자에게 제공하는 기능을 복원할 계획입니다. 또한, 사용자 피드백을 바탕으로 UI/UX를 개선하고 추가 기능을 도입할 예정입니다.
+
+<img src="assets/images/AIbudget_main_screen.png" alt="AIbudget Main Screen" width="280">
+<img src="assets/images/AIbudget_report_screen.png" alt="AIbudget Report Screen" width="272">
+
