@@ -1,12 +1,5 @@
 # Webtoon App
 
-<p float="left">
-  <img src="assets/images/webtoon_select_screen.png" alt="웹툰 앱 클론 메인 화면" width="250">
-  <img src="assets/images/webtoon_series_screen.png" alt="웹툰 앱 클론 메인 화면" width="250">
-  <img src="assets/images/webtoon_screen.png" alt="웹툰 앱 클론 메인 화면" width="254">
-</p>
-
-
 ## 프로젝트 소개
 
 이 프로젝트는 웹툰을 탐색하고 읽을 수 있는 애플리케이션입니다. 
@@ -25,3 +18,12 @@
 - **네비게이션**: 사용자가 웹툰을 선택할 때마다 적절한 화면으로 전환되는 네비게이션 로직을 구현했습니다.
 
 - **디자인**: 실제 웹툰 앱의 느낌을 살리기 위해 사용자 인터페이스를 세심하게 디자인했습니다.
+
+
+<p float="left">
+  <img src="assets/images/webtoon_select_screen.png" alt="웹툰 앱 클론 메인 화면" width="250">
+  <img src="assets/images/webtoon_series_screen.png" alt="웹툰 앱 클론 메인 화면" width="250">
+  <img src="assets/images/webtoon_screen.png" alt="웹툰 앱 클론 메인 화면" width="254">
+</p>
+
+
