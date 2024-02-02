@@ -1,9 +1,6 @@
-# Text animated counter App
+
 
 # Flutter 상태 관리 카운터 앱
-
-<img src="assets/images/Animated_counter.png" alt="AIbudget Main Screen" width="300">
-
 
 ## 프로젝트 소개
 
@@ -20,4 +17,9 @@
 - **Flutter**: 크로스 플랫폼 지원을 위해 Flutter 프레임워크를 사용하였습니다.
 
 - **애니메이션**: `text animated kit` 패키지를 사용하여 숫자가 변경될 때 매끄러운 텍스트 애니메이션을 구현했습니다.
+
+
+
+<img src="assets/images/Animated_counter.png" alt="AIbudget Main Screen" width="300">
+
 
