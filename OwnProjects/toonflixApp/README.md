@@ -1,7 +1,5 @@
 # Finance App_UI practice
 
-<img src="assets/images/financeApp_main_Screen.png" alt="Finance App" width="300">
-
 ## 프로젝트 소개
 
 이 프로젝트는 금융 애플리케이션의 사용자 인터페이스(UI) 구성 연습을 위해 만들어졌습니다. 
@@ -22,3 +20,7 @@
 - **디자인 컨셉**: 현대적이고 직관적인 사용자 경험을 제공하기 위한 명확하고 깨끗한 디자인을 적용했습니다.
 
 - **레이아웃 구성**: 앱의 레이아웃은 사용자가 정보를 쉽게 파악하고 필요한 조치를 취할 수 있도록 구성되었습니다.
+
+
+<img src="assets/images/financeApp_main_Screen.png" alt="Finance App" width="300">
+
